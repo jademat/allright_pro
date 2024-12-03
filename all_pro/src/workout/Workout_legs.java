@@ -81,7 +81,7 @@ public class Workout_legs extends JFrame {
         });
     }
 
-    public Workout_legs() {
+    public Workout_legs(JDBC jdbc,String mem_id) {
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("다리 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

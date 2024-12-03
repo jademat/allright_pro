@@ -17,7 +17,7 @@ public class Workout_arm extends JFrame {
     private JLabel titleLabel; // 운동 제목 라벨
     private int currentIndex = 0; // 현재 인덱스
     private JDBC jdbc; // JDBC 객체 추가
-
+    String men_id;
     // Exercise 클래스
     private static class Exercise {
         private String name;
@@ -81,7 +81,7 @@ public class Workout_arm extends JFrame {
         });
     }
 
-    public Workout_arm() {	
+    public Workout_arm(JDBC jdbc,String mem_id) {	
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("팔 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +90,7 @@ public class Workout_arm extends JFrame {
         getContentPane().setLayout(null);
 
 
-        Header header = new Header(jdbc, title);
+        Header header = new Header(jdbc,mem_id);
         header.setBounds(0, 0, 1200, 100); // Header 위치 설정
         getContentPane().add(header);
         

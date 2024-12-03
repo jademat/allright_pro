@@ -24,7 +24,7 @@ public class Food_main extends JFrame {
     private JPanel contentPane;
     private JTextField searchField; // 음식 이름 입력 필드
     private JLabel resultLabel; // 검색 결과를 출력할 라벨
-
+    String mem_id;
     // 데이터베이스 연결 관련 변수
     JDBC jdbc = new JDBC();
 
@@ -32,7 +32,8 @@ public class Food_main extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Food_main frame = new Food_main();
+                  
+					Food_main frame = new Food_main(jdbc, mem_id);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -41,7 +42,7 @@ public class Food_main extends JFrame {
         });
     }
 
-    public Food_main() {
+    public Food_main(JDBC jdbc,String mem_id) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기 변경 (1200x800)
         contentPane = new JPanel();
@@ -50,7 +51,7 @@ public class Food_main extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Header 컴포넌트 생성 후 위치 설정
-        Header header = new Header();
+        Header header = new Header(jdbc,mem_id);
         header.setBounds(0, 0, 1200, 100); // 헤더 위치와 크기 설정 (위쪽에 고정)
         contentPane.add(header); // 헤더를 contentPane에 추가
 

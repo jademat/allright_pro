@@ -18,6 +18,7 @@ public class Workout_shoulder extends JFrame {
     private JLabel titleLabel; // 운동 제목 라벨
     private int currentIndex = 0; // 현재 인덱스
     private JDBC jdbc; // JDBC 객체 추가
+    private String mem_id;
     
     // Exercise 클래스
     private static class Exercise {
@@ -74,7 +75,7 @@ public class Workout_shoulder extends JFrame {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-                Workout_shoulder frame = new Workout_shoulder();
+                Workout_shoulder frame = new Workout_shoulder(jdbc,mem_id);
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -82,7 +83,10 @@ public class Workout_shoulder extends JFrame {
         });
     }
 
-    public Workout_shoulder() {
+    public Workout_shoulder(JDBC jdbc,String mem_id) {
+    	this.jdbc=jdbc;
+    	this.mem_id=mem_id;
+    	
     	
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("어깨 운동");
@@ -92,7 +96,7 @@ public class Workout_shoulder extends JFrame {
         getContentPane().setLayout(null);
         
 
-        Header header = new Header();
+        Header header = new Header(jdbc,mem_id);
         header.setBounds(0, 0, 1200, 100); // Header 위치 설정
         getContentPane().add(header);
         
@@ -181,7 +185,7 @@ public class Workout_shoulder extends JFrame {
         legsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_legs legs = new Workout_legs();  // 하체 운동 페이지로 이동
+                Workout_legs legs = new Workout_legs(jdbc,mem_id);  // 하체 운동 페이지로 이동
                 legs.setVisible(true);
                 dispose();  // 현재 페이지 종료
             }
@@ -190,7 +194,7 @@ public class Workout_shoulder extends JFrame {
         armButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_arm arm = new Workout_arm();  // 팔 운동 페이지로 이동
+                Workout_arm arm = new Workout_arm(jdbc,mem_id);  // 팔 운동 페이지로 이동
                 arm.setVisible(true);
                 dispose();  // 현재 페이지 종료
             }
@@ -199,7 +203,7 @@ public class Workout_shoulder extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_back back = new Workout_back();  // 등 운동 페이지로 이동
+                Workout_back back = new Workout_back(jdbc,mem_id);  // 등 운동 페이지로 이동
                 back.setVisible(true);
                 dispose();  // 현재 페이지 종료
             }
@@ -208,7 +212,7 @@ public class Workout_shoulder extends JFrame {
         chestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_chest chest = new Workout_chest();  // 가슴 운동 페이지로 이동
+                Workout_chest chest = new Workout_chest(jdbc,mem_id);  // 가슴 운동 페이지로 이동
                 chest.setVisible(true);
                 dispose();  // 현재 페이지 종료
             }
@@ -217,7 +221,7 @@ public class Workout_shoulder extends JFrame {
         shoulderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_shoulder shoulder = new Workout_shoulder();
+                Workout_shoulder shoulder = new Workout_shoulder(jdbc,mem_id);
                 shoulder.setVisible(true);
                 dispose();
             }
@@ -226,7 +230,7 @@ public class Workout_shoulder extends JFrame {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Workout_main mainPage = new Workout_main();
+                Workout_main mainPage = new Workout_main(jdbc,mem_id);
                 mainPage.setVisible(true);
                 dispose();
             }

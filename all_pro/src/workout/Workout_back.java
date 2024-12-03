@@ -81,7 +81,7 @@ public class Workout_back extends JFrame {
         });
     }
 
-    public Workout_back() {
+    public Workout_back(JDBC jdbc,String mem_id) {
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("등 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

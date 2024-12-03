@@ -81,7 +81,7 @@ public class Workout_chest extends JFrame {
         });
     }
 
-    public Workout_chest() {
+    public Workout_chest(JDBC jdbc,String mem_id) {
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("가슴 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

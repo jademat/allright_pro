@@ -2,6 +2,7 @@ package workout;
 import javax.swing.*;
 
 import header.Header;
+import jdbc.JDBC;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ public class Workout_main extends JFrame {
         });
     }
 
-    public Workout_main() {
+    public Workout_main(JDBC jdbc,String mem_id) {
         getContentPane().setBackground(new Color(255, 255, 255));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800);  // 창 크기 변경
