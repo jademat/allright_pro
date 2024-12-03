@@ -241,6 +241,9 @@ public class Workout_arm extends JFrame {
         descriptionLabel.setText(exercises.get(currentIndex).getDescription());
     }
     
+    public Workout_arm(JDBC jdbc, String mem_id) {
+    	this.mem_id = mem_id;
+    }
      
       public static void main(String[] args) {
          

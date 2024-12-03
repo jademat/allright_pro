@@ -57,8 +57,8 @@ public class BoardMain extends JFrame {
    }
    
    public BoardMain(JDBC jdbc, String mem_id) {
-      this.mem_id = mem_id;
-   
+	   this.mem_id = mem_id;
+	   System.out.println("board >>>" +  mem_id);
    }
    
     public static void main(String[] args) {
