@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import board.BoardMain;
+import board.CRUD;
 import header.Header;
 import jdbc.JDBC;
 
@@ -24,25 +26,12 @@ public class Food_main extends JFrame {
     private JPanel contentPane;
     private JTextField searchField; // 음식 이름 입력 필드
     private JLabel resultLabel; // 검색 결과를 출력할 라벨
-    String mem_id;
-    // 데이터베이스 연결 관련 변수
+    static String mem_id;
     JDBC jdbc = new JDBC();
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                  
-					Food_main frame = new Food_main(jdbc, mem_id);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public Food_main(JDBC jdbc,String mem_id) {
+    CRUD crud = new CRUD(jdbc);
+    
+    public Food_main() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기 변경 (1200x800)
         contentPane = new JPanel();
@@ -127,4 +116,14 @@ public class Food_main extends JFrame {
             }
         }
     }
+    
+    public Food_main(JDBC jdbc, String mem_id) {
+        this.mem_id = mem_id;
+     
+     }
+     
+      public static void main(String[] args) {
+         
+         new Food_main();
+      }
 }

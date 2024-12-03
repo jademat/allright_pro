@@ -1,6 +1,7 @@
 package workout;
 import javax.swing.*;
 
+import board.BoardMain;
 import header.Header;
 import jdbc.JDBC;
 
@@ -17,7 +18,7 @@ public class Workout_back extends JFrame {
     private JLabel titleLabel; // 운동 제목 라벨
     private int currentIndex = 0; // 현재 인덱스
     private JDBC jdbc; // JDBC 객체 추가
-
+    static String mem_id;
     // Exercise 클래스
     private static class Exercise {
         private String name;
@@ -70,18 +71,8 @@ public class Workout_back extends JFrame {
         return exercises;
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Workout_shoulder frame = new Workout_shoulder();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
-    public Workout_back(JDBC jdbc,String mem_id) {
+    public Workout_back() {
         jdbc = new JDBC(); // JDBC 객체 생성
         setTitle("등 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +81,7 @@ public class Workout_back extends JFrame {
         getContentPane().setLayout(null);
 
 
-        Header header = new Header();
+        Header header = new Header(jdbc,mem_id);
         header.setBounds(0, 0, 1200, 100); // Header 위치 설정
         getContentPane().add(header);
         
@@ -249,4 +240,13 @@ public class Workout_back extends JFrame {
         titleLabel.setText(exercises.get(currentIndex).getName());
         descriptionLabel.setText(exercises.get(currentIndex).getDescription());
     }
+    public Workout_back(JDBC jdbc, String mem_id) {
+        this.mem_id = mem_id;
+     
+     }
+     
+      public static void main(String[] args) {
+         
+         new Workout_back();
+      }
 }

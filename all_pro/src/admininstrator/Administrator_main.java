@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import board.BoardMain;
 import jdbc.JDBC;
 
 import java.sql.*;
@@ -13,19 +14,8 @@ public class Administrator_main extends JFrame {
     private JTextField textField_1;
     private JPasswordField passwordField;
     public JTextArea textArea;
-
+    static String mem_id;
     private JDBC jdbc = new JDBC(); // JDBC 객체 생성
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                Administrator_main frame = new Administrator_main();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     public Administrator_main() {
         setTitle("관리자");
@@ -178,4 +168,13 @@ public class Administrator_main extends JFrame {
         }
         return isValid;
     }
+    public Administrator_main(JDBC jdbc) {
+        this.jdbc = jdbc;
+     
+     }
+     
+      public static void main(String[] args) {
+         
+         new Administrator_main();
+      }
 }
