@@ -17,9 +17,17 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import admininstrator.Administrator_main;
 import board.BoardMain;
+import food.Food_main;
 import header.Header;
 import jdbc.JDBC;
+import workout.Workout_arm;
+import workout.Workout_back;
+import workout.Workout_chest;
+import workout.Workout_legs;
+import workout.Workout_main;
+import workout.Workout_shoulder;
 
 public class Login extends JFrame {
 
@@ -29,8 +37,7 @@ public class Login extends JFrame {
 	private JTextField idText;
 	private JPasswordField passText;
 	JDBC jdbc = new JDBC();
-	Welcome wel = new Welcome(jdbc,getName());
-	BoardMain boardmain = new BoardMain(jdbc,getName());
+
 	/**
 	 * Launch the application.
 	 */
@@ -152,12 +159,27 @@ public class Login extends JFrame {
 				JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
 
+				if(mem_id.equals("admin")) {
+					Administrator_main ad = new Administrator_main();
+					ad.setVisible(true);
+					return;
+				}
 				// 로그인한 사용자 ID를 Welcome 화면으로 전달
 				Welcome wel = new Welcome(jdbc,mem_id);
 				wel.setVisible(true);
+				
+				
 				Profile pro = new Profile(jdbc,mem_id);
 				Header header = new Header(jdbc, mem_id); // JDBC 객체 전달
 				BoardMain bm = new BoardMain(jdbc, mem_id);
+				Workout_main wm = new Workout_main(jdbc,mem_id);
+				Workout_arm wa = new Workout_arm(jdbc,mem_id);
+				Workout_back wb = new Workout_back(jdbc,mem_id);
+				Workout_chest wc = new Workout_chest(jdbc,mem_id);
+				Workout_legs wl = new Workout_legs(jdbc,mem_id);
+				Workout_shoulder ws = new Workout_shoulder(jdbc,mem_id);
+				Food_main fm = new Food_main(jdbc,mem_id);
+				
 			} else {
 				// 로그인 실패
 				JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);

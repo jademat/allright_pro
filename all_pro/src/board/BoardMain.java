@@ -55,13 +55,12 @@ public class BoardMain extends JFrame {
         setVisible(true);
 	}
 	
-	public BoardMain(JDBC jdbc, String mem_id) {
-		// this.mem_id = mem_id;
-		System.out.println("mem_id >>> " + mem_id);
-	
-	}
 	
    
+   public BoardMain(JDBC jdbc, String mem_id) {
+	   this.mem_id = mem_id;
+	   System.out.println("board >>>" +  mem_id);
+   }
    
     public static void main(String[] args) {
        
