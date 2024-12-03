@@ -17,9 +17,9 @@ public class JDBC {
 	public void connect() {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@172.30.1.83:1521:xe";
-		String user = "";
-		String password = "";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "system";
+		String password = "bin852456";
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
