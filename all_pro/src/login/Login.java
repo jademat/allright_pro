@@ -17,9 +17,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import admininstrator.Administrator_main;
 import board.BoardMain;
 import header.Header;
 import jdbc.JDBC;
+import workout.Workout_main;
 
 public class Login extends JFrame {
 
@@ -31,6 +33,7 @@ public class Login extends JFrame {
 	JDBC jdbc = new JDBC();
 	Welcome wel = new Welcome(jdbc,getName());
 	BoardMain boardmain = new BoardMain(jdbc,getName());
+	Workout_main workoutmain = new Workout_main(jdbc,getName());
 	/**
 	 * Launch the application.
 	 */
@@ -152,12 +155,21 @@ public class Login extends JFrame {
 				JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
 
+				if(mem_id.equals("admin")) {
+					Administrator_main ad = new Administrator_main();
+					ad.setVisible(true);
+					return;
+				}
 				// 로그인한 사용자 ID를 Welcome 화면으로 전달
 				Welcome wel = new Welcome(jdbc,mem_id);
 				wel.setVisible(true);
 				Profile pro = new Profile(jdbc,mem_id);
 				Header header = new Header(jdbc, mem_id); // JDBC 객체 전달
 				BoardMain bm = new BoardMain(jdbc, mem_id);
+				
+				
+				
+				
 			} else {
 				// 로그인 실패
 				JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);

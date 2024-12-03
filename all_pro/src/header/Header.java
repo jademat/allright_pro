@@ -14,9 +14,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import board.BoardMain;
+import food.Food_main;
 import jdbc.JDBC;
 import login.Login;
 import login.Profile;
+import workout.Workout_main;
 
 public class Header extends JPanel {
 	private String mem_id;
@@ -35,17 +37,33 @@ public class Header extends JPanel {
         logoLabel.setBounds(10, 10, 150, 80); // 크기 및 위치 설정
         add(logoLabel);
 
-        JLabel lblNewLabel = new JLabel("EXECRISE");
-        lblNewLabel.setForeground(Color.WHITE);
-        lblNewLabel.setFont(new Font("굴림", Font.BOLD, 18));
-        lblNewLabel.setBounds(250, 28, 99, 42);
-        add(lblNewLabel);
+        JLabel exeLabel = new JLabel("EXECRISE");
+        exeLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		SwingUtilities.getWindowAncestor(Header.this).dispose();
+        		Workout_main wm = new Workout_main();
+        		wm.setVisible(true);
+        	}
+        });
+        exeLabel.setForeground(Color.WHITE);
+        exeLabel.setFont(new Font("굴림", Font.BOLD, 18));
+        exeLabel.setBounds(250, 28, 99, 42);
+        add(exeLabel);
         
-        JLabel lblFood = new JLabel("FOOD");
-        lblFood.setForeground(Color.WHITE);
-        lblFood.setFont(new Font("굴림", Font.BOLD, 18));
-        lblFood.setBounds(500, 28, 99, 42);
-        add(lblFood);
+        JLabel foodLabel = new JLabel("FOOD");
+        foodLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		SwingUtilities.getWindowAncestor(Header.this).dispose();
+        		Food_main fm = new Food_main();
+        		fm.setVisible(true);
+        	}
+        });
+        foodLabel.setForeground(Color.WHITE);
+        foodLabel.setFont(new Font("굴림", Font.BOLD, 18));
+        foodLabel.setBounds(500, 28, 99, 42);
+        add(foodLabel);
         
         JLabel boardLabel = new JLabel("BOARD");
         boardLabel.addMouseListener(new MouseAdapter() {
