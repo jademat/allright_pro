@@ -28,7 +28,7 @@ public class InsertPanel extends JPanel {
     BoardMain boardMain = new BoardMain(jdbc, mem_id);
 	
 
-    public InsertPanel(JDBC jdbc, CRUD crud) { 
+   public InsertPanel(JDBC jdbc, CRUD crud) { 
     	this.jdbc = jdbc;
     	this.crud = crud;
     	

@@ -309,7 +309,7 @@ public class Profile extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		}
 	
 	private void delete(JDBC jdbc, String mem_id) {
 		jdbc.connect();

@@ -26,7 +26,7 @@ public class Workout_arm extends JFrame {
       private String img;
 
         public Exercise(String name, String description, String img) {
-            this.name = name;
+           this.name = name;
             this.description = description;
             this.img= img;
         }

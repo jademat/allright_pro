@@ -108,7 +108,7 @@ public class Workout_main extends JFrame {
          public void actionPerformed(ActionEvent e) {
             // Manaager_board 창을 열도록 처리
 
-            Workout_shoulder shoulder = new Workout_shoulder();
+           Workout_shoulder shoulder = new Workout_shoulder();
             shoulder.setVisible(true);
             dispose();
 
