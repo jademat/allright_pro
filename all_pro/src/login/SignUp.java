@@ -155,16 +155,6 @@ JDBC jdbc = new JDBC();
 			public void actionPerformed(ActionEvent e) {
 				jdbc.connect();
 				insert();
-
-				idText.setText("");
-				passText.setText("");
-				nameText.setText("");
-				ageText.setText("");
-				phText.setText("");
-				addrText.setText("");
-				jobText.setText("");
-				idText.requestFocus();
-
 			}
 		});
 		comButton.setFont(new Font("굴림", Font.BOLD, 14));
@@ -200,11 +190,43 @@ JDBC jdbc = new JDBC();
 	void insert() {
 
 		try {
+
+			String id = idText.getText();
+			String password = new String(passText.getPassword());
+
 			// 입력값 검증
-			if (idText.getText().isEmpty() || passText.getPassword().length == 0 || nameText.getText().isEmpty()
-					|| ageText.getText().isEmpty() || phText.getText().isEmpty() || addrText.getText().isEmpty()
-					|| jobText.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+			JTextField[] textFields = { nameText, ageText, phText, addrText, jobText };
+			JPasswordField[] passFields = { passText };
+
+			// 텍스트 필드가 비어 있으면 해당 필드에 포커스
+			for (JTextField textField : textFields) {
+				String textempty = textField.getText();
+				if (textempty.isEmpty()) {
+					textField.requestFocus();
+					JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+					return;
+				}
+				if (textempty.contains(" ")) {
+					String textcon = textField.getText();
+					JOptionPane.showMessageDialog(null, "공백이 포함되어 있습니다.");
+					textField.requestFocus();
+					return;
+				}
+
+			}
+
+			// 비밀번호 필드가 비어 있으면 해당 필드에 포커스
+			for (JPasswordField passField : passFields) {
+				if (passField.getPassword().length == 0) {
+					passField.requestFocus();
+					JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+					return;
+				}
+			}
+			if (!isValidId(id)) {
+				return;
+			}
+			if (!isValidPass(password)) {
 				return;
 			}
 			// 숫자 확인 (AGE 필드)
@@ -214,10 +236,16 @@ JDBC jdbc = new JDBC();
 				if (age < 0) {
 					throw new NumberFormatException("나이는 음수가 될 수 없습니다.");
 				}
+				if (age > 100) {
+					throw new NumberFormatException("다시 입력해주세요");
+				}
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "유효한 나이를 입력해주세요.");
+				ageText.requestFocus();
 				return;
 			}
+
+			// 아이디 중복체크
 			jdbc.sql = "SELECT COUNT(*) FROM member WHERE mem_id = ?";
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 			jdbc.pstmt.setString(1, idText.getText());
@@ -227,29 +255,33 @@ JDBC jdbc = new JDBC();
 				int count = jdbc.res.getInt(1);
 				if (count > 0) {
 					JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.");
+					idText.requestFocus();
 					return; // 아이디 중복 시 종료
 				}
-		
+
 			}
-			
+
+			// 연락처 중복체크
 			jdbc.sql = "SELECT COUNT(*) FROM member WHERE mem_ph = ?";
-	        jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
-	        jdbc.pstmt.setString(1, phText.getText());
-	        jdbc.res = jdbc.pstmt.executeQuery();
+			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
+			jdbc.pstmt.setString(1, phText.getText());
+			jdbc.res = jdbc.pstmt.executeQuery();
 
-	        if (jdbc.res.next()) {
-	            int count = jdbc.res.getInt(1);
-	            if (count > 0) {
-	                JOptionPane.showMessageDialog(null, "이미 존재하는 연락처입니다.");
-	                return; // 연락처 중복 시 종료
-	            }
-	        }
+			if (jdbc.res.next()) {
+				int count = jdbc.res.getInt(1);
+				if (count > 0) {
+					JOptionPane.showMessageDialog(null, "이미 존재하는 연락처입니다.");
+					phText.requestFocus();
+					return; // 연락처 중복 시 종료
+				}
+			}
 
+			// 회원가입 sql
 			jdbc.sql = "insert into member values(?,?,?,?,?,?,?,sysdate,default)";
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 
-			jdbc.pstmt.setString(1, idText.getText());
-			jdbc.pstmt.setString(2, new String(passText.getPassword())); // 비밀번호
+			jdbc.pstmt.setString(1, id);
+			jdbc.pstmt.setString(2, password); // 비밀번호
 			jdbc.pstmt.setString(3, nameText.getText());
 			jdbc.pstmt.setString(4, ageText.getText());
 			jdbc.pstmt.setString(5, phText.getText());
@@ -257,8 +289,12 @@ JDBC jdbc = new JDBC();
 			jdbc.pstmt.setString(7, jobText.getText());
 
 			int res = jdbc.pstmt.executeUpdate();
+
 			if (res > 0) {
 				JOptionPane.showMessageDialog(null, "회원가입 성공");
+				setVisible(false);
+				Login l = new Login();
+				l.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "회원가입 실패");
 			}
@@ -268,6 +304,51 @@ JDBC jdbc = new JDBC();
 			JOptionPane.showMessageDialog(null, "데이터베이스 오류: " + e.getMessage());
 		}
 		jdbc.close(jdbc.con, jdbc.pstmt);
+	}
+
+	public boolean isValidId(String id) {
+		if (id.contains(" ")) {
+			JOptionPane.showMessageDialog(this, "아이디에 공백을 포함할 수 없습니다.");
+			idText.requestFocus();
+			return false;
+		}
+		if (id.length() < 5 || id.length() > 15) {
+			JOptionPane.showMessageDialog(this, "아이디는 5글자 이상, 15글자 이하로 입력해주세요.");
+			idText.requestFocus();
+			return false;
+		}
+		if (!id.matches("^[a-zA-Z0-9]+$")) {
+			JOptionPane.showMessageDialog(this, "아이디는 영어와 숫자만 포함할 수 있습니다.");
+			idText.requestFocus();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean isValidPass(String password) {
+		if (password.contains(" ")) {
+			JOptionPane.showMessageDialog(this, "비밀번호에 공백을 포함할 수 없습니다.");
+			passText.requestFocus();
+			return false;
+		}
+		if (password.length() < 8 || password.length() > 20) {
+			JOptionPane.showMessageDialog(this, "비밀번호는 8글자 이상, 20글자 이하로 입력해주세요.");
+			passText.requestFocus();
+			return false;
+		}
+
+		if (!password.matches(".*\\d.*")) {
+			JOptionPane.showMessageDialog(this, "비밀번호는 숫자를 포함해야 합니다.");
+			return false;
+		}
+		// 특수문자 포함 확인
+		if (!password.matches(".*\\W.*")) {
+			JOptionPane.showMessageDialog(this, "비밀번호는 특수문자를 포함해야 합니다.");
+			return false;
+		}
+
+		return true;
+
 	}
 
 }

@@ -19,6 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import admininstrator.Administrator_main;
 import board.BoardMain;
+import board.CRUD;
+import board.DetailPanel;
+import board.InsertPanel;
 import food.Food_main;
 import header.Header;
 import jdbc.JDBC;
@@ -179,6 +182,9 @@ public class Login extends JFrame {
 				Workout_legs wl = new Workout_legs(jdbc,mem_id);
 				Workout_shoulder ws = new Workout_shoulder(jdbc,mem_id);
 				Food_main fm = new Food_main(jdbc,mem_id);
+				DetailPanel dp = new DetailPanel(jdbc,mem_id);
+	            InsertPanel ip = new InsertPanel(jdbc,mem_id);
+	            CRUD crud = new CRUD(jdbc, mem_id);
 				
 			} else {
 				// 로그인 실패
