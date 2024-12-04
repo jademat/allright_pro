@@ -185,6 +185,7 @@ public class Login extends JFrame {
 				DetailPanel dp = new DetailPanel(jdbc,mem_id);
 	            InsertPanel ip = new InsertPanel(jdbc,mem_id);
 	            CRUD crud = new CRUD(jdbc, mem_id);
+	            My_board my = new My_board(jdbc,mem_id);
 				
 			} else {
 				// 로그인 실패
