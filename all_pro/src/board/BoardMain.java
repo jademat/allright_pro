@@ -8,7 +8,7 @@ import header.Header;
 import jdbc.JDBC;
 
 public class BoardMain extends JFrame {
-	String mem_id;
+	static String mem_id;
 	JDBC jdbc = new JDBC();
 	CRUD crud = new CRUD(jdbc);
  
@@ -64,6 +64,6 @@ public class BoardMain extends JFrame {
    
     public static void main(String[] args) {
        
-       // new BoardMain();
+        new BoardMain();
     }
 }
