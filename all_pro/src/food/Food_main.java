@@ -27,7 +27,7 @@ public class Food_main extends JFrame {
     private JTextField searchField; // 음식 이름 입력 필드
     private JLabel resultLabel; // 검색 결과를 출력할 라벨
     static String mem_id;
-    JDBC jdbc = new JDBC();
+   JDBC jdbc = new JDBC();
 
     CRUD crud = new CRUD(jdbc);
     

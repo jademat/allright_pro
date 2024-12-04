@@ -29,7 +29,7 @@ public class InsertPanel extends JPanel {
     private JPanel insertPanel;		// 현재 InsertPanel 참조
     private Board boardPanel;			// Board2 참조
 
-    public InsertPanel(JDBC jdbc, CRUD crud) { 
+   public InsertPanel(JDBC jdbc, CRUD crud) { 
     	this.jdbc = jdbc;
     	this.crud = crud;
     	

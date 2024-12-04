@@ -37,7 +37,6 @@ public class Welcome extends JFrame {
 
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         
-
     }
 
 

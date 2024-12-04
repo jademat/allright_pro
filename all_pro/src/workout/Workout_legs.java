@@ -210,7 +210,7 @@ public class Workout_legs extends JFrame {
                 Workout_shoulder shoulder = new Workout_shoulder();
                 shoulder.setVisible(true);
                 dispose();
-            }
+           }
         });
 
         returnButton.addActionListener(new ActionListener() {

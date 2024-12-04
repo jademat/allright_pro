@@ -142,16 +142,36 @@ public class Administrator_workout extends JFrame {
             model.setRowCount(0);
             select();
         });
-
         btnDelete.addActionListener(e -> {
             jdbc.connect();
-            if (jtf1.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "삭제할 운동 번호를 입력해주세요.");
-                return; // 운동 번호가 입력되지 않았다면 삭제 진행하지 않음
+            int selectedRow = table.getSelectedRow(); // 선택된 행을 가져옴
+
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "삭제할 운동을 선택하세요.");
+                return;  // 선택된 행이 없으면 삭제 진행하지 않음
             }
-            delete(); // 삭제 메서드 호출
-            model.setRowCount(0); // 테이블 초기화
-            select(); // 데이터 새로 고침
+
+            // 선택된 행의 운동 번호 가져오기
+            int exNo = (int) model.getValueAt(selectedRow, 0);  // 첫 번째 열 (운동 번호)
+
+            // 삭제 메서드 호출
+            jdbc.sql = "DELETE FROM workout WHERE ex_no = ?";
+            try {
+                jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
+                jdbc.pstmt.setInt(1, exNo);
+                int result = jdbc.pstmt.executeUpdate();
+                
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "운동 삭제 성공");
+                    model.removeRow(selectedRow);  // 삭제된 행을 테이블에서 제거
+                } else {
+                    JOptionPane.showMessageDialog(null, "운동 삭제 실패");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                jdbc.close(jdbc.con, jdbc.pstmt);
+            }
         });
 
         btnInsert.addActionListener(e -> {

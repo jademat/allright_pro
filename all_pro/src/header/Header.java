@@ -25,7 +25,7 @@ public class Header extends JPanel {
 	private JDBC jdbc;
 
 	public Header(JDBC jdbc, String mem_id) {
-		this.jdbc = jdbc;
+	this.jdbc = jdbc;
 		this.mem_id = mem_id;
         
         setBackground(Color.BLACK);

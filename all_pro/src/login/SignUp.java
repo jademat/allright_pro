@@ -28,7 +28,7 @@ public class SignUp extends JFrame {
 	private JTextField idText, nameText, ageText, phText, addrText, jobText;
 	private JPasswordField passText;
 	private JButton comButton, endButton;
-	JDBC jdbc = new JDBC();
+JDBC jdbc = new JDBC();
 
 	/**
 	 * Launch the application.

@@ -125,7 +125,7 @@ public class Login extends JFrame {
 				setVisible(false);
 				s.setVisible(true);
 
-			}
+		}
 		});
 
 		upB.setBounds(142, 291, 91, 23);
