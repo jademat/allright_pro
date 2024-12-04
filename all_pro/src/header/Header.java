@@ -17,6 +17,7 @@ import board.BoardMain;
 import food.Food_main;
 import jdbc.JDBC;
 import login.Login;
+import login.My_board;
 import login.Profile;
 import workout.Workout_main;
 
@@ -37,7 +38,7 @@ public class Header extends JPanel {
         logoLabel.setBounds(10, 10, 150, 80); // 크기 및 위치 설정
         add(logoLabel);
 
-        JLabel exeLabel = new JLabel("EXECRISE");
+        JLabel exeLabel = new JLabel("EXERCISE");
         exeLabel.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -80,11 +81,6 @@ public class Header extends JPanel {
         boardLabel.setBounds(750, 28, 99, 42);
         add(boardLabel);
         
-        
-        
-
-
-        
         // 사용자 아이콘 및 팝업 메뉴
         JLabel userIcon = new JLabel(new ImageIcon("backimage/user.png"));
         userIcon.setBounds(1050, 10, 80, 80);
@@ -94,7 +90,6 @@ public class Header extends JPanel {
         JPopupMenu userMenu = new JPopupMenu();
         JMenuItem profile = new JMenuItem("Profile");
         JMenuItem myBoard = new JMenuItem("MY Board");
-        JMenuItem settingsItem = new JMenuItem("Settings");
         JMenuItem logout = new JMenuItem("Logout");	
 
         userMenu.add(profile);
@@ -110,6 +105,10 @@ public class Header extends JPanel {
         
         profile.addActionListener(e -> {
         	new Profile(jdbc,mem_id).setVisible(true);
+        });
+        
+        myBoard.addActionListener(e -> {
+        	new My_board(jdbc,mem_id).setVisible(true);
         });
 
         // 로그아웃 버튼 클릭 시 행동
