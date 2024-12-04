@@ -17,6 +17,7 @@ public class JDBC {
 	public void connect() {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
+
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
