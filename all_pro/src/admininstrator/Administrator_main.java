@@ -29,6 +29,10 @@ public class Administrator_main extends JFrame {
         contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
+        // 아이콘 로그아웃 버튼
+        Icon icon= new Icon();
+        icon.addToPanel(contentPane);
 
         // 버튼 크기와 간격 설정
         int buttonWidth = 200;
@@ -70,21 +74,25 @@ public class Administrator_main extends JFrame {
         btnNewButton.addActionListener(e -> {
             Administrator_member managerMemberFrame = new Administrator_member();
             managerMemberFrame.setVisible(true);
+            dispose();
         });
 
         btnNewButton_1.addActionListener(e -> {
             Administrator_board managerBoardFrame = new Administrator_board();
             managerBoardFrame.setVisible(true);
+            dispose();
         });
 
         btnNewButton_3.addActionListener(e -> {
             Administrator_workout workoutFrame = new Administrator_workout();
             workoutFrame.setVisible(true);
+            dispose();
         });
 
         btnnewbutton_4.addActionListener(e -> {
             Administrator_food foodFrame = new Administrator_food();
             foodFrame.setVisible(true);
+            dispose();
         });
     }
 }
