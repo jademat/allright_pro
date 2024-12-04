@@ -31,7 +31,7 @@ public class Workout_main extends JFrame {
       getContentPane().add(header);
 
       JLabel logoLabel2 = new JLabel(new ImageIcon("image/work.png"));
-      logoLabel2.setBounds(192, 120, 1000, 500); // 위치 및 크기 조정
+      logoLabel2.setBounds(192, 120, 1000, 600); // 위치 및 크기 조정
       getContentPane().add(logoLabel2);
 
       // 운동 버튼들
