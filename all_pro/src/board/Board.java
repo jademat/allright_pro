@@ -184,30 +184,30 @@ public class Board extends JPanel {
 				switch (selectComboBox.getSelectedIndex()) {
 					// 제목 검색
 					case 0 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
+						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
 			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_name LIKE ?"
-			    	    		+ " ORDER BY boa_notice DESC, boa_no DESC";
+			    	    		+ " ORDER BY boa_no DESC";
 				        break;
 				        
 				    // 본문 검색
 					case 1 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
+						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
 			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_write LIKE ?"
-			    	    		+ "ORDER BY boa_notice DESC, boa_no DESC";
+			    	    		+ "ORDER BY boa_no DESC";
 				        break;
 				        
 					// 작성자 검색
 					case 2 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
+						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
 			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE m.mem_id LIKE ?"
-			    	    		+ "ORDER BY boa_notice DESC, boa_no DESC";
+			    	    		+ "ORDER BY boa_no DESC";
 				        break;
 				        
 					// 작성일 검색
 					case 3 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
+						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
 			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_date LIKE ?"
-			    	    		+ "ORDER BY boa_notice DESC, boa_no DESC";
+			    	    		+ "ORDER BY boa_no DESC";
 				        break;
 				} // switch 문 end
 			}
@@ -276,11 +276,10 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_notice = (Integer) rowData[3];
-	                    int boa_like = (Integer) rowData[4];
-	                    String boa_date = (String) rowData[5];
-	                    String mem_id = (String) rowData[6];
-	                    int mem_rank = (Integer) rowData[7];
+	                    int boa_like = (Integer) rowData[3];
+	                    String boa_date = (String) rowData[4];
+	                    String mem_id = (String) rowData[5];
+	                    int mem_rank = (Integer) rowData[6];
 	
 	                    // DetailPanel에 데이터 전달
 	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
@@ -316,11 +315,10 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_notice = (Integer) rowData[3];
-	                    int boa_like = (Integer) rowData[4];
-	                    String boa_date = (String) rowData[5];
-	                    String mem_id = (String) rowData[6];
-	                    int mem_rank = (Integer) rowData[7];
+	                    int boa_like = (Integer) rowData[3];
+	                    String boa_date = (String) rowData[4];
+	                    String mem_id = (String) rowData[5];
+	                    int mem_rank = (Integer) rowData[6];
 	
 	                    // DetailPanel에 데이터 전달
 	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);

@@ -29,8 +29,8 @@ public class CRUD {
 		List<Object[]> dataList = new ArrayList<>();
 		try {
 			jdbc.connect();
-    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
-    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_no DESC";
+    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_no DESC";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	    	jdbc.res = jdbc.pstmt.executeQuery();
 	          
@@ -40,7 +40,6 @@ public class CRUD {
 	    					jdbc.res.getInt("boa_no"),
 	    					jdbc.res.getString("boa_name"),
 	    					jdbc.res.getString("boa_write"),
-	    					jdbc.res.getInt("boa_notice"),
 	    					jdbc.res.getInt("boa_like"),
 	    					jdbc.res.getString("boa_date").substring(0, 10),
 	    					jdbc.res.getString("mem_id"),
@@ -72,8 +71,8 @@ public class CRUD {
 	List<Object[]> loadTable2(DefaultTableModel model) {
 		List<Object[]> dataList = new ArrayList<>();
 		try {
-    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
-    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_no";
+    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_no";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	    	jdbc.res = jdbc.pstmt.executeQuery();
 	          
@@ -83,7 +82,6 @@ public class CRUD {
 	    					jdbc.res.getInt("boa_no"),
 	    					jdbc.res.getString("boa_name"),
 	    					jdbc.res.getString("boa_write"),
-	    					jdbc.res.getInt("boa_notice"),
 	    					jdbc.res.getInt("boa_like"),
 	    					jdbc.res.getString("boa_date").substring(0, 10),
 	    					jdbc.res.getString("mem_id"),
@@ -115,8 +113,8 @@ public class CRUD {
 	List<Object[]> loadTable3(DefaultTableModel model) {
 		List<Object[]> dataList = new ArrayList<>();
 		try {
-    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
-    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_like DESC";
+    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_like DESC";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	    	jdbc.res = jdbc.pstmt.executeQuery();
 	          
@@ -126,7 +124,6 @@ public class CRUD {
 	    					jdbc.res.getInt("boa_no"),
 	    					jdbc.res.getString("boa_name"),
 	    					jdbc.res.getString("boa_write"),
-	    					jdbc.res.getInt("boa_notice"),
 	    					jdbc.res.getInt("boa_like"),
 	    					jdbc.res.getString("boa_date").substring(0, 10),
 	    					jdbc.res.getString("mem_id"),
@@ -158,8 +155,8 @@ public class CRUD {
 	List<Object[]> loadTable4(DefaultTableModel model) {
 		List<Object[]> dataList = new ArrayList<>();
 		try {
-    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
-    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, mem_rank DESC";
+    	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY mem_rank DESC";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	    	jdbc.res = jdbc.pstmt.executeQuery();
 	          
@@ -169,7 +166,6 @@ public class CRUD {
 	    					jdbc.res.getInt("boa_no"),
 	    					jdbc.res.getString("boa_name"),
 	    					jdbc.res.getString("boa_write"),
-	    					jdbc.res.getInt("boa_notice"),
 	    					jdbc.res.getInt("boa_like"),
 	    					jdbc.res.getString("boa_date").substring(0, 10),
 	    					jdbc.res.getString("mem_id"),
@@ -270,7 +266,7 @@ public class CRUD {
 				count = jdbc.res.getInt(1);
 			}
 			
-			jdbc.sql = "insert into board values(?, ?, ?, 0, 0, sysdate, '" + mem_id + "')";
+			jdbc.sql = "insert into board values(?, ?, ?, 0, sysdate, '" + mem_id + "')";
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);					
 			jdbc.pstmt.setInt(1, count + 1);					// 글 번호(최신화)
 			jdbc.pstmt.setString(2, boa_name);	// 글 제목
@@ -306,7 +302,6 @@ public class CRUD {
     					jdbc.res.getInt("boa_no"),
     					jdbc.res.getString("boa_name"),
     					jdbc.res.getString("boa_write"),
-    					jdbc.res.getInt("boa_notice"),
     					jdbc.res.getInt("boa_like"),
     					jdbc.res.getString("boa_date").substring(0, 10),
     					jdbc.res.getString("mem_id"),
