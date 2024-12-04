@@ -233,12 +233,59 @@ public class Profile extends JFrame {
 
 	private void updpate(JDBC jdbc, String mem_id) {
 		jdbc.connect();
+		SignUp su = new SignUp();
 		try {
-			if (passText.getPassword().length == 0 || nameText.getText().isEmpty() || ageText.getText().isEmpty()
-					|| phText.getText().isEmpty() || addrText.getText().isEmpty() || jobText.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+
+			String password = new String(passText.getPassword()); 
+
+			// 입력값 검증
+			JTextField[] textFields = { nameText, ageText, phText, addrText, jobText};
+			JPasswordField[] passFields = {passText};
+
+			// 텍스트 필드가 비어 있으면 해당 필드에 포커스
+			for (JTextField textField : textFields) {
+				String textempty = textField.getText();
+			    if (textempty.isEmpty()) {
+			        textField.requestFocus();
+			        JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+			        return;
+			    }
+			    if(textempty.contains(" ")) {
+			    	String textcon = textField.getText();
+			    	JOptionPane.showMessageDialog(null, "공백이 포함되어 있습니다.");
+		            textField.requestFocus();
+		            return;
+			    }
+			 
+			}
+
+			// 비밀번호 필드가 비어 있으면 해당 필드에 포커스
+			for (JPasswordField passField : passFields) {
+			    if (passField.getPassword().length == 0) {
+			        passField.requestFocus();
+			        JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+			        return;
+			    }
+			}			
+			if (!su.isValidPass(password)) {
 				return;
 			}
+			
+			// 연락처 중복체크
+			jdbc.sql = "SELECT COUNT(*) FROM member WHERE mem_ph = ?";
+			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
+			jdbc.pstmt.setString(1, phText.getText());
+			jdbc.res = jdbc.pstmt.executeQuery();
+
+			if (jdbc.res.next()) {
+				int count = jdbc.res.getInt(1);
+				if (count > 0) {
+					JOptionPane.showMessageDialog(null, "이미 존재하는 연락처입니다.");
+					phText.requestFocus();
+					return; // 연락처 중복 시 종료
+				}
+			}
+
 
 			jdbc.sql = "update member set mem_pass = ? , mem_name = ?, mem_age = ? , mem_ph = ?, mem_addr = ? , mem_job =?"
 					+ "where mem_id = ?";
@@ -262,7 +309,7 @@ public class Profile extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		}
 	
 	private void delete(JDBC jdbc, String mem_id) {
 		jdbc.connect();

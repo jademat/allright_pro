@@ -24,7 +24,7 @@ public class InsertPanel extends JPanel {
     private Board boardPanel;			// Board2 참조
     static String mem_id;
 
-    public InsertPanel(JDBC jdbc, CRUD crud) { 
+   public InsertPanel(JDBC jdbc, CRUD crud) { 
     	this.jdbc = jdbc;
     	this.crud = crud;
     

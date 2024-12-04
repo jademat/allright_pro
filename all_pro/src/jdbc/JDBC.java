@@ -20,6 +20,7 @@ public class JDBC {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "";
 		String password = "";
+
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);

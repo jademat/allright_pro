@@ -237,7 +237,7 @@ public class Workout_shoulder extends JFrame {
 
    private void updateContent(int direction) {
       currentIndex = (currentIndex + direction + exercises.size()) % exercises.size();
-      titleLabel.setText(exercises.get(currentIndex).getName());
+     titleLabel.setText(exercises.get(currentIndex).getName());
       descriptionLabel.setText(exercises.get(currentIndex).getDescription());
    }
 

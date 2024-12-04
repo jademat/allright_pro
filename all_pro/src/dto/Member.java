@@ -14,7 +14,7 @@ public class Member {
 	private Date mem_date;
 	private int mem_rank;
 	
-	public Member() {
+public Member() {
 		// TODO Auto-generated constructor stub
 	}
 

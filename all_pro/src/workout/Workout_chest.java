@@ -200,7 +200,7 @@ public class Workout_chest extends JFrame {
                 Workout_chest chest = new Workout_chest();  // 가슴 운동 페이지로 이동
                 chest.setVisible(true);
                 dispose();  // 현재 페이지 종료
-            }
+           }
         });
 
         shoulderButton.addActionListener(new ActionListener() {

@@ -121,7 +121,7 @@ public class DetailPanel extends JPanel {
             detailPanel.repaint();
             
             detailPanel.setVisible(false); // DetailPanel 숨김
-            boardPanel.setVisible(true);  // Board2 표시         
+            boardPanel.setVisible(true);  // Board2 표시        
         });
         
         
