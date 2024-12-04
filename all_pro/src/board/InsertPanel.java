@@ -22,16 +22,12 @@ public class InsertPanel extends JPanel {
     private DefaultTableModel model;
     private JPanel insertPanel;		// 현재 InsertPanel 참조
     private Board boardPanel;			// Board2 참조
-    private String mem_id;
-    //private BoardMain boardMain;
-    
-    BoardMain boardMain = new BoardMain(jdbc, mem_id);
-	
+    static String mem_id;
 
     public InsertPanel(JDBC jdbc, CRUD crud) { 
     	this.jdbc = jdbc;
     	this.crud = crud;
-    	
+    
         setLayout(null);
 
         // 게시글 내용
@@ -103,10 +99,16 @@ public class InsertPanel extends JPanel {
 		});
     }
     
+    public InsertPanel(JDBC jdbc, String mem_id) {
+    	this.jdbc = jdbc;
+    	this.mem_id = mem_id;
+    }
+    
     
     // Board2와 InsertPanel 참조 설정 메서드
     public void setInsertPanel(Board boardPanel, JPanel insertPanel) {
         this.boardPanel = boardPanel;
         this.insertPanel = insertPanel;
     }
+        
 }

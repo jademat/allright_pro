@@ -20,6 +20,7 @@ public class DetailPanel extends JPanel {
     private JTextArea board_write;  // 게시글 내용
     private Board boardPanel;     // Board2 참조
     private JPanel detailPanel;    // 현재 DetailPanel 참조
+    static String mem_id;
     
     Board board = new Board();
 
@@ -161,6 +162,11 @@ public class DetailPanel extends JPanel {
         	}
         });
     }
+    
+    public DetailPanel(JDBC jdbc, String mem_id) {
+    	this.jdbc = jdbc;
+    	this.mem_id = mem_id;
+    }
 
 
     // 데이터를 설정하는 메서드
@@ -180,4 +186,7 @@ public class DetailPanel extends JPanel {
         this.boardPanel = boardPanel;
         this.detailPanel = detailPanel;
     }
+    
+    
+    
 }

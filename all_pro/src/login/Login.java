@@ -19,6 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import admininstrator.Administrator_main;
 import board.BoardMain;
+import board.CRUD;
+import board.DetailPanel;
+import board.InsertPanel;
 import food.Food_main;
 import header.Header;
 import jdbc.JDBC;
@@ -191,4 +194,5 @@ public class Login extends JFrame {
 			jdbc.close(jdbc.con, jdbc.pstmt);
 		}
 	}
+	
 }

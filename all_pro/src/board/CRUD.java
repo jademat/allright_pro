@@ -12,9 +12,15 @@ import jdbc.JDBC;
 
 public class CRUD {
 	public JDBC jdbc;	// connect 메소드 호출을 위한 초기화
+	static String mem_id;
 	
 	public CRUD(JDBC jdbc) {
 		this.jdbc = jdbc;
+	}
+	
+	public CRUD(JDBC jdbc, String mem_id) {
+		this.jdbc = jdbc;
+		this.mem_id = mem_id;
 	}
 	
 	// Board 테이블 데이터를 조회하여 JTable 모델에 추가하고 데이터를 반환하는 메서드
@@ -22,6 +28,7 @@ public class CRUD {
 	List<Object[]> loadTable(DefaultTableModel model) {
 		List<Object[]> dataList = new ArrayList<>();
 		try {
+			jdbc.connect();
     	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
     	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_no DESC";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
@@ -263,13 +270,11 @@ public class CRUD {
 				count = jdbc.res.getInt(1);
 			}
 			
-			jdbc.sql = "insert into board values(?, ?, ?, 0, 0, sysdate, 'kang')";
+			jdbc.sql = "insert into board values(?, ?, ?, 0, 0, sysdate, '" + mem_id + "')";
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);					
 			jdbc.pstmt.setInt(1, count + 1);					// 글 번호(최신화)
 			jdbc.pstmt.setString(2, boa_name);	// 글 제목
 			jdbc.pstmt.setString(3, boa_write);	// 글 내용
-			//pstmt.setInt(4, '0');
-			//pstmt.setInt(5, '0');
 			
 			int result = jdbc.pstmt.executeUpdate();
 			if (result > 0) {
@@ -283,4 +288,49 @@ public class CRUD {
 					e1.printStackTrace();
 		}
 	} // insert 메서드 end
+	
+	
+	// search 메서드
+	List<Object[]> searchBoard(String searchText, DefaultTableModel model) {
+		List<Object[]> dataList = new ArrayList<>();
+		try {
+			//jdbc.sql = query;
+			System.out.println(jdbc.sql);
+			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);			
+		    jdbc.pstmt.setString(1, searchText);
+		    jdbc.res = jdbc.pstmt.executeQuery();
+		    
+		 // ResultSet을 반복하여 데이터를 추출하고 처리
+    		while (jdbc.res.next()) {
+    			Object[] fullData = {
+    					jdbc.res.getInt("boa_no"),
+    					jdbc.res.getString("boa_name"),
+    					jdbc.res.getString("boa_write"),
+    					jdbc.res.getInt("boa_notice"),
+    					jdbc.res.getInt("boa_like"),
+    					jdbc.res.getString("boa_date").substring(0, 10),
+    					jdbc.res.getString("mem_id"),
+    					jdbc.res.getInt("mem_rank")
+   	             };
+   	             Object[] tableData = { 
+   	            		jdbc.res.getInt("boa_no"),
+   	            		jdbc.res.getString("boa_name"),
+   	            		jdbc.res.getString("mem_id"),
+   	            		jdbc.res.getInt("mem_rank"),
+   	            		jdbc.res.getInt("boa_like"),
+   	            		jdbc.res.getString("boa_date").substring(0, 10)
+   	             };
+				
+				 // JTable 모델에 간단한 데이터 추가
+				 model.addRow(tableData);
+				 // 전체 데이터를 리스트에 추가
+	             dataList.add(fullData);
+    		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dataList; // 조회된 데이터 반환
+	}	// search 메서드 end
+	
 }
