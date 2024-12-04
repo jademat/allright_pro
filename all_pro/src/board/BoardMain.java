@@ -4,15 +4,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import dto.Member;
 import header.Header;
 import jdbc.JDBC;
 
 public class BoardMain extends JFrame {
-   static String mem_id;
-   JDBC jdbc = new JDBC();
-   CRUD crud = new CRUD(jdbc);
-   
+	String mem_id;
+	JDBC jdbc = new JDBC();
+	CRUD crud = new CRUD(jdbc);
+ 
    public BoardMain() {
               
         setTitle("운동관리시스템");
@@ -54,15 +53,17 @@ public class BoardMain extends JFrame {
         insertPanel.setInsertPanel(boardPanel, insertPanel);       
 
         setVisible(true);
-   }
+	}
+	
+	
    
    public BoardMain(JDBC jdbc, String mem_id) {
-      this.mem_id = mem_id;
-   
+	   this.mem_id = mem_id;
+	   System.out.println("board >>>" +  mem_id);
    }
    
     public static void main(String[] args) {
        
-       new BoardMain();
+       // new BoardMain();
     }
 }

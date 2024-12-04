@@ -1,14 +1,11 @@
 package board;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdbc.JDBC;
@@ -65,7 +62,8 @@ public class CRUD {
 	
 	
 	// 번호 오름차순 정렬
-	void loadTable2(DefaultTableModel model) {
+	List<Object[]> loadTable2(DefaultTableModel model) {
+		List<Object[]> dataList = new ArrayList<>();
 		try {
     	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
     	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_no";
@@ -74,62 +72,84 @@ public class CRUD {
 	          
 	    		// ResultSet을 반복하여 데이터를 추출하고 처리
 	    		while (jdbc.res.next()) {
-	    			int boa_no = jdbc.res.getInt("boa_no");
-	            	String boa_name = jdbc.res.getString("boa_name");
-	            	String boa_write = jdbc.res.getString("boa_write");
-	            	int boa_notice = jdbc.res.getInt("boa_notice");
-	            	int boa_like = jdbc.res.getInt("boa_like");
-	            	String boa_date = jdbc.res.getString("boa_date").substring(0, 10);
-	            	String mem_id = jdbc.res.getString("mem_id");
-	            	int mem_rank =  jdbc.res.getInt("mem_rank");
-					
-	            	Object[] tableData = {boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, mem_id, mem_rank};
+	    			Object[] fullData = {
+	    					jdbc.res.getInt("boa_no"),
+	    					jdbc.res.getString("boa_name"),
+	    					jdbc.res.getString("boa_write"),
+	    					jdbc.res.getInt("boa_notice"),
+	    					jdbc.res.getInt("boa_like"),
+	    					jdbc.res.getString("boa_date").substring(0, 10),
+	    					jdbc.res.getString("mem_id"),
+	    					jdbc.res.getInt("mem_rank")
+	   	             };
+	   	             Object[] tableData = { 
+	   	            		jdbc.res.getInt("boa_no"),
+	   	            		jdbc.res.getString("boa_name"),
+	   	            		jdbc.res.getString("mem_id"),
+	   	            		jdbc.res.getInt("mem_rank"),
+	   	            		jdbc.res.getInt("boa_like"),
+	   	            		jdbc.res.getString("boa_date").substring(0, 10)
+	   	             };
 					
 					 // JTable 모델에 간단한 데이터 추가
-					 model.addRow(tableData);					
+					 model.addRow(tableData);
+					 // 전체 데이터를 리스트에 추가
+		             dataList.add(fullData);
 	    		}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return dataList; // 조회된 데이터 반환
 	} // loadTable2() 메서드 end
 	
 	
-	
 	// 인기글순 정렬
-	void loadTable3(DefaultTableModel model) {
+	List<Object[]> loadTable3(DefaultTableModel model) {
+		List<Object[]> dataList = new ArrayList<>();
 		try {
     	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
-    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_like DESC";;
+    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, boa_like DESC";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	    	jdbc.res = jdbc.pstmt.executeQuery();
 	          
 	    		// ResultSet을 반복하여 데이터를 추출하고 처리
 	    		while (jdbc.res.next()) {
-	    			int boa_no = jdbc.res.getInt("boa_no");
-	            	String boa_name = jdbc.res.getString("boa_name");
-	            	String boa_write = jdbc.res.getString("boa_write");
-	            	int boa_notice = jdbc.res.getInt("boa_notice");
-	            	int boa_like = jdbc.res.getInt("boa_like");
-	            	String boa_date = jdbc.res.getString("boa_date").substring(0, 10);
-	            	String mem_id = jdbc.res.getString("mem_id");
-	            	int mem_rank =  jdbc.res.getInt("mem_rank");
-					
-	            	Object[] tableData = {boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, mem_id, mem_rank};
+	    			Object[] fullData = {
+	    					jdbc.res.getInt("boa_no"),
+	    					jdbc.res.getString("boa_name"),
+	    					jdbc.res.getString("boa_write"),
+	    					jdbc.res.getInt("boa_notice"),
+	    					jdbc.res.getInt("boa_like"),
+	    					jdbc.res.getString("boa_date").substring(0, 10),
+	    					jdbc.res.getString("mem_id"),
+	    					jdbc.res.getInt("mem_rank")
+	   	             };
+	   	             Object[] tableData = { 
+	   	            		jdbc.res.getInt("boa_no"),
+	   	            		jdbc.res.getString("boa_name"),
+	   	            		jdbc.res.getString("mem_id"),
+	   	            		jdbc.res.getInt("mem_rank"),
+	   	            		jdbc.res.getInt("boa_like"),
+	   	            		jdbc.res.getString("boa_date").substring(0, 10)
+	   	             };
 					
 					 // JTable 모델에 간단한 데이터 추가
-					 model.addRow(tableData);					
+					 model.addRow(tableData);
+					 // 전체 데이터를 리스트에 추가
+		             dataList.add(fullData);
 	    		}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return dataList; // 조회된 데이터 반환
 	} // loadTable3() 메서드 end
 	
 	
-	
 	// 등급순 정렬
-	void loadTable4(DefaultTableModel model) {
+	List<Object[]> loadTable4(DefaultTableModel model) {
+		List<Object[]> dataList = new ArrayList<>();
 		try {
     	    jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, b.mem_id, mem_rank"
     	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id ORDER BY boa_notice DESC, mem_rank DESC";
@@ -138,24 +158,35 @@ public class CRUD {
 	          
 	    		// ResultSet을 반복하여 데이터를 추출하고 처리
 	    		while (jdbc.res.next()) {
-	    			int boa_no = jdbc.res.getInt("boa_no");
-	            	String boa_name = jdbc.res.getString("boa_name");
-	            	String boa_write = jdbc.res.getString("boa_write");
-	            	int boa_notice = jdbc.res.getInt("boa_notice");
-	            	int boa_like = jdbc.res.getInt("boa_like");
-	            	String boa_date = jdbc.res.getString("boa_date").substring(0, 10);
-	            	String mem_id = jdbc.res.getString("mem_id");
-	            	int mem_rank =  jdbc.res.getInt("mem_rank");
-					
-	            	Object[] tableData = {boa_no, boa_name, boa_write, boa_notice, boa_like, boa_date, mem_id, mem_rank};
+	    			Object[] fullData = {
+	    					jdbc.res.getInt("boa_no"),
+	    					jdbc.res.getString("boa_name"),
+	    					jdbc.res.getString("boa_write"),
+	    					jdbc.res.getInt("boa_notice"),
+	    					jdbc.res.getInt("boa_like"),
+	    					jdbc.res.getString("boa_date").substring(0, 10),
+	    					jdbc.res.getString("mem_id"),
+	    					jdbc.res.getInt("mem_rank")
+	   	             };
+	   	             Object[] tableData = { 
+	   	            		jdbc.res.getInt("boa_no"),
+	   	            		jdbc.res.getString("boa_name"),
+	   	            		jdbc.res.getString("mem_id"),
+	   	            		jdbc.res.getInt("mem_rank"),
+	   	            		jdbc.res.getInt("boa_like"),
+	   	            		jdbc.res.getString("boa_date").substring(0, 10)
+	   	             };
 					
 					 // JTable 모델에 간단한 데이터 추가
-					 model.addRow(tableData);					
+					 model.addRow(tableData);
+					 // 전체 데이터를 리스트에 추가
+		             dataList.add(fullData);
 	    		}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return dataList; // 조회된 데이터 반환
 	} // loadTable4() 메서드 end
 	 
 	
@@ -184,7 +215,7 @@ public class CRUD {
 	// updateLikes 메서드
 	int updateLikes(int boardNo) {		    
 	    try {
-	    	jdbc.sql = "UPDATE board SET boa_like = boa_like + 1 WHERE boa_no = ?"; 
+	    	jdbc.sql = "UPDATE board SET boa_like = boa_like + 1 WHERE boa_no = ?";
 	    	jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 	        jdbc.pstmt.setInt(1, boardNo);
 	        jdbc.pstmt.executeUpdate();

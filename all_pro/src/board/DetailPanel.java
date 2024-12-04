@@ -5,6 +5,8 @@ import javax.swing.*;
 import jdbc.JDBC;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class DetailPanel extends JPanel {
 	private JDBC jdbc;
@@ -18,6 +20,8 @@ public class DetailPanel extends JPanel {
     private JTextArea board_write;  // 게시글 내용
     private Board boardPanel;     // Board2 참조
     private JPanel detailPanel;    // 현재 DetailPanel 참조
+    
+    Board board = new Board();
 
     public DetailPanel(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
@@ -110,6 +114,7 @@ public class DetailPanel extends JPanel {
             String title = board_name.getText();
             String content = board_write.getText();
             crud.updateBoard(boardNo, title, content);                     
+            jdbc.close(jdbc.con, jdbc.pstmt);
             
             detailPanel.revalidate();
             detailPanel.repaint();
@@ -126,6 +131,7 @@ public class DetailPanel extends JPanel {
             if (result == JOptionPane.YES_OPTION) {
                 int boa_no = Integer.parseInt(board_no.getText());
                 crud.deleteBoard(boa_no);
+                jdbc.close(jdbc.con, jdbc.pstmt);
 
             detailPanel.setVisible(false); // DetailPanel 숨김
             boardPanel.setVisible(true);  // Board2 표시
@@ -135,22 +141,27 @@ public class DetailPanel extends JPanel {
         
         // 목록 버튼 이벤트 처리
         btnList.addActionListener(e -> {
+        	
             detailPanel.setVisible(false); // DetailPanel 숨김
             boardPanel.setVisible(true);  // Board2 표시
+            board.setTexts(board.boa_no, board.boa_name, board.boa_write, board.boa_like, board.boa_date, board.mem_id, board.mem_rank);
         });
         
         
         // 좋아요 버튼 이벤트 처리
         btnlikes.addActionListener(e -> {
+        	jdbc.connect();
         	int boardNo = Integer.parseInt(board_no.getText());
         	int likeCount = crud.updateLikes(boardNo);
         	board_likes.setText(String.valueOf(likeCount));
+        	jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
         	// 좋아요 버튼을 한 번만 클릭되게 하는 로직
         	if (btnlikes == btnlikes) {
         		btnlikes.setEnabled(false);
         	}
-        });  
+        });
     }
+
 
     // 데이터를 설정하는 메서드
     public void setDetails(int boa_no, String boa_name, String boa_write, int boa_like, String boa_date, String mem_id, int mem_rank) {
@@ -163,6 +174,7 @@ public class DetailPanel extends JPanel {
         member_rank.setText(String.valueOf(mem_rank));
     }
 
+    
     // Board2와 DetailPanel 참조 설정 메서드
     public void setDetailPanel(Board boardPanel, JPanel detailPanel) {
         this.boardPanel = boardPanel;

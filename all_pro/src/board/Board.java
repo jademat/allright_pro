@@ -1,6 +1,5 @@
 package board;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,9 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import jdbc.JDBC;
-import board.CRUD;
 
-import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -32,7 +29,19 @@ public class Board extends JPanel {
     private InsertPanel insertPanel; // InsertPanel 참조
     private JPanel boardPanel;       // 현재 Board2 패널 참조
     private DefaultTableModel model;
-    private JTextField textField;
+    private JTextField searchField;
+    
+    int boa_no;
+    String boa_name;
+    String boa_write;
+    int boa_like;
+    String boa_date;
+    String mem_id;
+    int mem_rank;
+    
+    public Board() {
+		// TODO Auto-generated constructor stub
+	}
 
     public Board(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
@@ -55,13 +64,14 @@ public class Board extends JPanel {
         scrollPane.setBounds(150, 100, 900, 450);
         add(scrollPane);
         
-        // refreshButton(새로고침) 버튼 
-        JButton refreshButton = new JButton("REFRESH");
-        refreshButton.setForeground(new Color(238, 57, 8));
-        refreshButton.setFont(new Font("굴림", Font.BOLD, 14));
-        refreshButton.setBackground(new Color(0, 0, 0));
-        refreshButton.setBounds(150, 585, 112, 35);
-        add(refreshButton);
+// 새로고침버튼 삭제 예정
+//        // refreshButton(새로고침) 버튼 
+//        JButton refreshButton = new JButton("REFRESH");
+//        refreshButton.setForeground(new Color(238, 57, 8));
+//        refreshButton.setFont(new Font("굴림", Font.BOLD, 14));
+//        refreshButton.setBackground(new Color(0, 0, 0));
+//        refreshButton.setBounds(150, 585, 112, 35);
+//        add(refreshButton);
         
         // insertButton(글작성) 버튼
         JButton insertButton = new JButton("WRITE");
@@ -71,12 +81,12 @@ public class Board extends JPanel {
         insertButton.setBounds(938, 585, 112, 35);
         add(insertButton);
         
-        // "BOARD" 라벨
-        JLabel lblNewLabel = new JLabel("BOARD");
-        lblNewLabel.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 40));
-        lblNewLabel.setForeground(new Color(238, 57, 8));
-        lblNewLabel.setBounds(150, 21, 419, 57);
-        add(lblNewLabel);
+//        // "BOARD" 라벨
+//        JLabel lblNewLabel = new JLabel("BOARD");
+//        lblNewLabel.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 40));
+//        lblNewLabel.setForeground(new Color(238, 57, 8));
+//        lblNewLabel.setBounds(150, 21, 419, 57);
+//        add(lblNewLabel);
         
         // 정렬 comboBox
         String[] sort = {"----- 기본 -----", "번호 오름차순", "인기글순", "등급순"};
@@ -85,24 +95,24 @@ public class Board extends JPanel {
         add(comboBox);
         
         // 검색(search) textField, button
-        textField = new JTextField();
-        textField.setBounds(371, 590, 324, 25);
-        add(textField);
-       
+        searchField = new JTextField();
+        searchField.setBounds(150, 65, 324, 25);
+        add(searchField);
         JButton searchBtn = new JButton("검색");
-        searchBtn.setBounds(701, 587, 99, 28);
+        searchBtn.setBounds(486, 62, 99, 28);
         add(searchBtn);
         
-        // refreshButton(새로고침) 이벤트 처리
-        refreshButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				jdbc.connect();
-		        model.setRowCount(0);
-		        crud.loadTable(model);
-		        jdbc.close(null, null, null);
-			}
-		});
+// 새로고침버튼 삭제 예정
+//        // refreshButton(새로고침) 이벤트 처리
+//        refreshButton.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				jdbc.connect();
+//		        model.setRowCount(0);
+//		        List<Object[]> list = crud.loadTable(model);
+//		        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+//			}
+//		});
         
         
         // insertButton(글작성) 이벤트 처리
@@ -125,40 +135,46 @@ public class Board extends JPanel {
 					case 0 :
 						jdbc.connect();
 				        model.setRowCount(0);
-				        crud.loadTable(model);
-				        jdbc.close(null, null, null);
+				        List<Object[]> list = crud.loadTable(model);
+				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+				        selectTable1();
 				        break;
+				        
 				    // 번호 오름차순 정렬
 					case 1 :
 						jdbc.connect();
 				        model.setRowCount(0);
-				        crud.loadTable2(model);
-				        jdbc.close(null, null, null);
+				        List<Object[]> list2 = crud.loadTable2(model);
+				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+				        selectTable2();
 				        break;
+				        
 					// 인기글순 정렬
 					case 2 :
 						jdbc.connect();
 				        model.setRowCount(0);
-				        crud.loadTable3(model);
-				        jdbc.close(null, null, null);
+				        List<Object[]> list3 = crud.loadTable3(model);
+				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+				        selectTable3();
 				        break;
+				        
 					// 등급순 정렬
 					case 3 :
 						jdbc.connect();
 				        model.setRowCount(0);
-				        crud.loadTable4(model);
-				        jdbc.close(null, null, null);
+				        List<Object[]> list4 = crud.loadTable4(model);
+				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+				        selectTable4();
 				        break;
 				} // switch 문 end
 			}
-		});
+		});	// comboBox(정렬) 이벤트 처리 end
         
         
         // searchBtn(검색) 이벤트 처리
         searchBtn.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				
 			}
 		});
@@ -167,36 +183,19 @@ public class Board extends JPanel {
         jdbc.connect();
         model.setRowCount(0);
         List<Object[]> list = crud.loadTable(model);
-        jdbc.close(null, null, null);        
-
-        // 레코드 선택 이벤트
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-
-                int selectedRow = table.getSelectedRow(); // 선택된 행
-                if (selectedRow != -1) {
-                	
-                    // JTable 모델로부터 데이터 가져오기
-                	Object[] rowData = list.get(selectedRow);
-                    int boa_no = (Integer) rowData[0];
-                    String boa_name = (String) rowData[1];
-                    String boa_write = (String) rowData[2];
-                    int boa_notice = (Integer) rowData[3];
-                    int boa_like = (Integer) rowData[4];
-                    String boa_date = (String) rowData[5];
-                    String mem_id = (String) rowData[6];
-                    int mem_rank = (Integer) rowData[7];
-
-                    // DetailPanel에 데이터 전달
-                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-
-                    // 화면 전환
-                    boardPanel.setVisible(false); // Board2 숨김
-                    detailPanel.setVisible(true); // DetailPanel 표시                	
-                }
-            }
-        });        
+        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+        selectTable1();
+    }
+    
+    // 데이터를 설정하는 메서드
+    public void setTexts(int boa_no, String boa_name, String boa_write, int boa_like, String boa_date, String mem_id, int mem_rank) {
+    	this.boa_no = boa_no;
+        this.boa_name = boa_name;
+        this.boa_write = boa_write;
+        this.boa_date = boa_date;
+        this.boa_like = boa_like;
+        this.mem_id = mem_id;
+        this.mem_rank = mem_rank;
     }
 
     
@@ -205,5 +204,165 @@ public class Board extends JPanel {
         this.detailPanel = detailPanel;
         this.insertPanel = insertPanel;
         this.boardPanel = boardPanel;
+    }
+    
+    
+    // 기본(default) 정렬시 레코드 선택 메서드
+    void selectTable1() {
+	    // 레코드 선택 시 이벤트 처리
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        @Override
+	        public void valueChanged(ListSelectionEvent e) {
+	            // 값이 변경되었을 때 처리
+	            int selectedRow = table.getSelectedRow(); // 선택된 행
+	            if (!e.getValueIsAdjusting() && selectedRow != -1) { // 이벤트가 최종 선택 시 실행
+	                jdbc.connect(); // JDBC 연결 초기화
+	                model.setRowCount(0); // 테이블 초기화
+	                List<Object[]> list = crud.loadTable(model); // 새로 데이터 로드
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
+	                
+	                // 새로 로드된 데이터에서 선택된 행에 접근
+	                if (selectedRow < list.size()) { // 선택된 행이 유효할 경우에만 처리
+	                    Object[] rowData = list.get(selectedRow);
+	                    int boa_no = (Integer) rowData[0];
+	                    String boa_name = (String) rowData[1];
+	                    String boa_write = (String) rowData[2];
+	                    int boa_notice = (Integer) rowData[3];
+	                    int boa_like = (Integer) rowData[4];
+	                    String boa_date = (String) rowData[5];
+	                    String mem_id = (String) rowData[6];
+	                    int mem_rank = (Integer) rowData[7];
+	
+	                    // DetailPanel에 데이터 전달
+	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	
+	                    // 화면 전환
+	                    boardPanel.setVisible(false); // Board2 숨김
+	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                }
+	            }
+	        }
+	    });
+    }
+    
+    
+    // 번호 오름차순 정렬시 레코드 선택 메서드
+    void selectTable2() {
+	    // 레코드 선택 시 이벤트 처리
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        @Override
+	        public void valueChanged(ListSelectionEvent e) {
+	            // 값이 변경되었을 때 처리
+	            int selectedRow = table.getSelectedRow(); // 선택된 행
+	            if (!e.getValueIsAdjusting() && selectedRow != -1) { // 이벤트가 최종 선택 시 실행
+	                jdbc.connect(); // JDBC 연결 초기화
+	                model.setRowCount(0); // 테이블 초기화
+	                List<Object[]> list2 = crud.loadTable2(model); // 새로 데이터 로드
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
+	                
+	                // 새로 로드된 데이터에서 선택된 행에 접근
+	                if (selectedRow < list2.size()) { // 선택된 행이 유효할 경우에만 처리
+	                    Object[] rowData = list2.get(selectedRow);
+	                    int boa_no = (Integer) rowData[0];
+	                    String boa_name = (String) rowData[1];
+	                    String boa_write = (String) rowData[2];
+	                    int boa_notice = (Integer) rowData[3];
+	                    int boa_like = (Integer) rowData[4];
+	                    String boa_date = (String) rowData[5];
+	                    String mem_id = (String) rowData[6];
+	                    int mem_rank = (Integer) rowData[7];
+	
+	                    // DetailPanel에 데이터 전달
+	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	
+	                    // 화면 전환
+	                    boardPanel.setVisible(false); // Board2 숨김
+	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                }
+	            }
+	        }
+	    });
+    }
+    
+    
+    // 인기글순 정렬시 레코드 선택 메서드
+    void selectTable3() {
+	    // 레코드 선택 시 이벤트 처리
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        @Override
+	        public void valueChanged(ListSelectionEvent e) {
+	            // 값이 변경되었을 때 처리
+	            int selectedRow = table.getSelectedRow(); // 선택된 행
+	            if (!e.getValueIsAdjusting() && selectedRow != -1) { // 이벤트가 최종 선택 시 실행
+	                jdbc.connect(); // JDBC 연결 초기화
+	                model.setRowCount(0); // 테이블 초기화
+	                List<Object[]> list3 = crud.loadTable3(model); // 새로 데이터 로드
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
+	                
+	                // 새로 로드된 데이터에서 선택된 행에 접근
+	                if (selectedRow < list3.size()) { // 선택된 행이 유효할 경우에만 처리
+	                    Object[] rowData = list3.get(selectedRow);
+	                    int boa_no = (Integer) rowData[0];
+	                    String boa_name = (String) rowData[1];
+	                    String boa_write = (String) rowData[2];
+	                    int boa_notice = (Integer) rowData[3];
+	                    int boa_like = (Integer) rowData[4];
+	                    String boa_date = (String) rowData[5];
+	                    String mem_id = (String) rowData[6];
+	                    int mem_rank = (Integer) rowData[7];
+	
+	                    // DetailPanel에 데이터 전달
+	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	
+	                    // 화면 전환
+	                    boardPanel.setVisible(false); // Board2 숨김
+	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                }
+	            }
+	        }
+	    });
+    }
+    
+    
+    // 등급순 정렬시 레코드 선택 메서드
+    void selectTable4() {
+	    // 레코드 선택 시 이벤트 처리
+	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	        @Override
+	        public void valueChanged(ListSelectionEvent e) {
+	            // 값이 변경되었을 때 처리
+	            int selectedRow = table.getSelectedRow(); // 선택된 행
+	            if (!e.getValueIsAdjusting() && selectedRow != -1) { // 이벤트가 최종 선택 시 실행
+	                jdbc.connect(); // JDBC 연결 초기화
+	                model.setRowCount(0); // 테이블 초기화
+	                List<Object[]> list4 = crud.loadTable4(model); // 새로 데이터 로드
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
+	                
+	                // 새로 로드된 데이터에서 선택된 행에 접근
+	                if (selectedRow < list4.size()) { // 선택된 행이 유효할 경우에만 처리
+	                    Object[] rowData = list4.get(selectedRow);
+	                    int boa_no = (Integer) rowData[0];
+	                    String boa_name = (String) rowData[1];
+	                    String boa_write = (String) rowData[2];
+	                    int boa_notice = (Integer) rowData[3];
+	                    int boa_like = (Integer) rowData[4];
+	                    String boa_date = (String) rowData[5];
+	                    String mem_id = (String) rowData[6];
+	                    int mem_rank = (Integer) rowData[7];
+	
+	                    // DetailPanel에 데이터 전달
+	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+	
+	                    // 화면 전환
+	                    boardPanel.setVisible(false); // Board2 숨김
+	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                }
+	            }
+	        }
+	    });
     }
 }
