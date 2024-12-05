@@ -193,7 +193,7 @@ JDBC jdbc = new JDBC();
 
 			String id = idText.getText();
 			String password = new String(passText.getPassword());
-
+			String name = nameText.getText();
 			// 입력값 검증
 			JTextField[] textFields = { nameText, ageText, phText, addrText, jobText };
 			JPasswordField[] passFields = { passText };
@@ -227,6 +227,9 @@ JDBC jdbc = new JDBC();
 				return;
 			}
 			if (!isValidPass(password)) {
+				return;
+			}
+			if(!isValidName(name)) {
 				return;
 			}
 			// 숫자 확인 (AGE 필드)
@@ -282,7 +285,7 @@ JDBC jdbc = new JDBC();
 
 			jdbc.pstmt.setString(1, id);
 			jdbc.pstmt.setString(2, password); // 비밀번호
-			jdbc.pstmt.setString(3, nameText.getText());
+			jdbc.pstmt.setString(3, name);
 			jdbc.pstmt.setString(4, ageText.getText());
 			jdbc.pstmt.setString(5, phText.getText());
 			jdbc.pstmt.setString(6, addrText.getText());
@@ -349,6 +352,25 @@ JDBC jdbc = new JDBC();
 
 		return true;
 
+	}
+	public boolean isValidName(String name) {
+		if(name.contains(" ")) {
+			JOptionPane.showMessageDialog(this, "이름에 공백을 포함할 수 없습니다.");
+			nameText.requestFocus();
+			return false;
+		}
+		if(name.length() < 2 || name.length() > 8) {
+			JOptionPane.showMessageDialog(this, "이름을 다시 입력해주세요.");
+			nameText.requestFocus();
+			return false;
+		}
+		if(!name.matches("^[가-힣]+$")) {
+			JOptionPane.showMessageDialog(this, "이름은 한글로 입력해주세요.");
+			nameText.requestFocus();
+			return false;
+		}
+		
+		return true;
 	}
 
 }

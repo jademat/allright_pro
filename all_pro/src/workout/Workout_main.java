@@ -60,6 +60,7 @@ public class Workout_main extends JFrame {
       });
       
       JLabel shoulderLabel = new JLabel("SHOULDER");
+
       shoulderLabel.addMouseListener(new MouseAdapter() {
       	@Override
       	public void mouseClicked(MouseEvent e){

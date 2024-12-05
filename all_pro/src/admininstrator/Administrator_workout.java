@@ -15,7 +15,7 @@ public class Administrator_workout extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     static String mem_id;
-   JDBC jdbc = new JDBC();  // JDBC 객체를 클래스 멤버로 선언
+  JDBC jdbc = new JDBC();  // JDBC 객체를 클래스 멤버로 선언
 
     JTextField jtf1, jtf2, jtf3, jtfImagePath;  // 이미지 경로를 위한 텍스트 필드 추가
     JTable table;

@@ -19,7 +19,7 @@ public class Administrator_member extends JFrame {
     private JPanel contentPane;
     static String mem_id;
     
-    JDBC jdbc = new JDBC();
+   JDBC jdbc = new JDBC();
 
     JTextField jtf1;
 

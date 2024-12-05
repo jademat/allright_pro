@@ -20,7 +20,7 @@ public class Administrator_main extends JFrame {
                 e.printStackTrace();
             }
         });
-    }
+   }
 
     public Administrator_main() {
         setTitle("관리자");

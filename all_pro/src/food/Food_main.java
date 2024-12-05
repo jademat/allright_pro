@@ -83,8 +83,8 @@ public class Food_main extends JFrame {
         resultLabel.setBounds(100, 250, 1000, 40);
         contentPane.add(resultLabel);
         
-        JLabel foodLable= new JLabel(new ImageIcon("image/food.png"));
-        foodLable.setBounds(300, 300, 400, 400);
+        JLabel foodLable= new JLabel(new ImageIcon("image/food.jpg"));
+        foodLable.setBounds(300, 300, 450, 450);
         contentPane.add(foodLable);
 
         // 검색 버튼 클릭 시 이벤트 처리

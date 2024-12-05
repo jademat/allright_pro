@@ -71,7 +71,7 @@ public class Administrator_board extends JFrame {
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jsp.setPreferredSize(new Dimension(600, 400)); // 테이블 세로 크기 줄이기
+       jsp.setPreferredSize(new Dimension(600, 400)); // 테이블 세로 크기 줄이기
 
         // 하단 버튼 영역
         JPanel leftBottomPanel = new JPanel();

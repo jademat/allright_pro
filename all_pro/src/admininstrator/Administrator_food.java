@@ -18,7 +18,7 @@ public class Administrator_food extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     static String mem_id;
-    JDBC jdbc = new JDBC();
+   JDBC jdbc = new JDBC();
 
     JTextField jtf1, jtf2, jtf3;
 
