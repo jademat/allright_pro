@@ -31,9 +31,9 @@ public class BoardMain extends JFrame {
        boardPanel.setBounds(0, 100, 1186, 663);
        boardPanel.setLayout(new BorderLayout(0, 0));
 
-       DetailPanel detailPanel = new DetailPanel(jdbc, crud);
-       detailPanel.setBounds(0, 100, 1186, 663);
-       detailPanel.setLayout(new BorderLayout(0, 0));
+//       DetailPanel detailPanel = new DetailPanel(jdbc, crud);
+//       detailPanel.setBounds(0, 100, 1186, 663);
+//       detailPanel.setLayout(new BorderLayout(0, 0));
        
        InsertPanel insertPanel = new InsertPanel(jdbc, crud);
        insertPanel.setBounds(0, 100, 1186, 663);
@@ -46,19 +46,19 @@ public class BoardMain extends JFrame {
        // 패널 추가
        getContentPane().add(headerPanel, BorderLayout.NORTH);
        getContentPane().add(boardPanel, BorderLayout.CENTER);
-       getContentPane().add(detailPanel, BorderLayout.CENTER);
+       //getContentPane().add(detailPanel, BorderLayout.CENTER);
        getContentPane().add(insertPanel, BorderLayout.CENTER);
        getContentPane().add(viewPanel, BorderLayout.CENTER);
        
        // 기본 화면 설정
        boardPanel.setVisible(true);
-       detailPanel.setVisible(false);
+       //detailPanel.setVisible(false);
        insertPanel.setVisible(false);
        viewPanel.setVisible(false);
 
-       // Board2에서 DetailPanel에 접근할 수 있도록 연결
-       boardPanel.setBoardPanel(detailPanel, insertPanel, boardPanel);        
-       detailPanel.setDetailPanel(boardPanel, detailPanel);        
+       // BoardMain에서 Panel에 접근할 수 있도록 연결
+       boardPanel.setBoardPanel(insertPanel, boardPanel, viewPanel);        
+       //detailPanel.setDetailPanel(boardPanel, detailPanel);        
        insertPanel.setInsertPanel(boardPanel, insertPanel);
        viewPanel.setViewPanel(boardPanel, viewPanel);
 

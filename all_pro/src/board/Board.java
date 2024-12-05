@@ -25,7 +25,6 @@ public class Board extends JPanel {
 	private CRUD crud;
 
 	private JTable table;
-	private DetailPanel detailPanel; // DetailPanel 참조
 	private InsertPanel insertPanel; // InsertPanel 참조
 	private ViewPanel viewPanel;
 	private JPanel boardPanel; // 현재 Board2 패널 참조
@@ -45,8 +44,7 @@ public class Board extends JPanel {
 		// TODO Auto-generated constructor stub
 	}
     
-    
-    
+
     public Board(String mem_id) {
     	this.member_id = mem_id;
 	}
@@ -56,7 +54,6 @@ public class Board extends JPanel {
     	this.crud = crud;
     	
     	// 기본 패널 초기화
-    	this.detailPanel = new DetailPanel(jdbc, crud);
         this.viewPanel = new ViewPanel(jdbc, crud);
         this.insertPanel = new InsertPanel(jdbc, crud);
         this.boardPanel = this;
@@ -226,8 +223,6 @@ public class Board extends JPanel {
         
     }
     
-
-    
     
     // 기본(default) 정렬시 레코드 선택 메서드
     void selectTable1() {
@@ -244,7 +239,6 @@ public class Board extends JPanel {
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list = crud.loadTable(model); // 새로 데이터 로드
-	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	                
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
@@ -257,8 +251,8 @@ public class Board extends JPanel {
 	                    String boa_date = (String) rowData[4];
 	                    String mem_id = (String) rowData[5];
 	                    int mem_rank = (Integer) rowData[6];
-	                    
-                        // DetailPanel에 데이터 전달
+	                    	                    
+                        // VPanel에 데이터 전달
                         viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
                         setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
 
@@ -266,6 +260,7 @@ public class Board extends JPanel {
                         boardPanel.setVisible(false); // Board2 숨김
                         viewPanel.setVisible(true); // DetailPanel 표시
 	                }
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	            }
 	        }
 	    });
@@ -284,7 +279,6 @@ public class Board extends JPanel {
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list2 = crud.loadTable2(model); // 새로 데이터 로드
-	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
 	                if (selectedRow < list2.size()) { // 선택된 행이 유효할 경우에만 처리
@@ -297,14 +291,15 @@ public class Board extends JPanel {
 	                    String mem_id = (String) rowData[5];
 	                    int mem_rank = (Integer) rowData[6];
 	
-	                    // DetailPanel에 데이터 전달
-	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	
-	                    // 화면 전환
-	                    boardPanel.setVisible(false); // Board2 숨김
-	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                    // VPanel에 데이터 전달
+                        viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+                        setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+
+                        // 화면 전환
+                        boardPanel.setVisible(false); // Board2 숨김
+                        viewPanel.setVisible(true); // ViewPanel 표시
 	                }
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	            }
 	        }
 	    });
@@ -323,7 +318,6 @@ public class Board extends JPanel {
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list3 = crud.loadTable3(model); // 새로 데이터 로드
-	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
 	                if (selectedRow < list3.size()) { // 선택된 행이 유효할 경우에만 처리
@@ -331,19 +325,20 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_like = (Integer) rowData[4];
-	                    String boa_date = (String) rowData[5];
-	                    String mem_id = (String) rowData[6];
-	                    int mem_rank = (Integer) rowData[7];
+	                    int boa_like = (Integer) rowData[3];
+	                    String boa_date = (String) rowData[4];
+	                    String mem_id = (String) rowData[5];
+	                    int mem_rank = (Integer) rowData[6];
 	
-	                    // DetailPanel에 데이터 전달
-	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	
-	                    // 화면 전환
-	                    boardPanel.setVisible(false); // Board2 숨김
-	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                    // VPanel에 데이터 전달
+                        viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+                        setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+
+                        // 화면 전환
+                        boardPanel.setVisible(false); // Board2 숨김
+                        viewPanel.setVisible(true); // ViewPanel 표시
 	                }
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	            }
 	        }
 	    });
@@ -362,7 +357,6 @@ public class Board extends JPanel {
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list4 = crud.loadTable4(model); // 새로 데이터 로드
-	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
 	                if (selectedRow < list4.size()) { // 선택된 행이 유효할 경우에만 처리
@@ -370,19 +364,20 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_like = (Integer) rowData[4];
-	                    String boa_date = (String) rowData[5];
-	                    String mem_id = (String) rowData[6];
-	                    int mem_rank = (Integer) rowData[7];
+	                    int boa_like = (Integer) rowData[3];
+	                    String boa_date = (String) rowData[4];
+	                    String mem_id = (String) rowData[5];
+	                    int mem_rank = (Integer) rowData[6];
 	
-	                    // DetailPanel에 데이터 전달
-	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	
-	                    // 화면 전환
-	                    boardPanel.setVisible(false); // Board2 숨김
-	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                    // VPanel에 데이터 전달
+                        viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+                        setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+
+                        // 화면 전환
+                        boardPanel.setVisible(false); // Board2 숨김
+                        viewPanel.setVisible(true); // ViewPanel 표시
 	                }
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	            }
 	        }
 	    });
@@ -401,7 +396,6 @@ public class Board extends JPanel {
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list5 = crud.searchBoard(searchText, model); // 새로 데이터 로드
-	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
 	                if (selectedRow < list5.size()) { // 선택된 행이 유효할 경우에만 처리
@@ -414,14 +408,15 @@ public class Board extends JPanel {
 	                    String mem_id = (String) rowData[6];
 	                    int mem_rank = (Integer) rowData[7];
 	
-	                    // DetailPanel에 데이터 전달
-	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	
-	                    // 화면 전환
-	                    boardPanel.setVisible(false); // Board2 숨김
-	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                    // VPanel에 데이터 전달
+                        viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+                        setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+
+                        // 화면 전환
+                        boardPanel.setVisible(false); // Board2 숨김
+                        viewPanel.setVisible(true); // DetailPanel 표시
 	                }
+	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
 	            }
 	        }
 	    });
@@ -440,17 +435,10 @@ public class Board extends JPanel {
 
     
     // DetailPanel과 BoardMain 참조 설정 메서드
-    public void setBoardPanel(DetailPanel detailPanel, InsertPanel insertPanel, JPanel boardPanel) {
-        this.detailPanel = detailPanel;
+    public void setBoardPanel(InsertPanel insertPanel, JPanel boardPanel, ViewPanel viewPanel) {
         this.insertPanel = insertPanel;
         this.boardPanel = boardPanel;
-    }
-    
-    // ViewPanel과 BoardMain 참조 설정 메서드
-    public void setBoardPanel(ViewPanel viewPanel, InsertPanel insertPanel, JPanel boardPanel) {
         this.viewPanel = viewPanel;
-        this.insertPanel = insertPanel;
-        this.boardPanel = boardPanel;
     }
 
 }

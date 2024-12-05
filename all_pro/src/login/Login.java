@@ -185,7 +185,7 @@ public class Login extends JFrame {
 				Workout_legs wl = new Workout_legs(jdbc,mem_id);
 				Workout_shoulder ws = new Workout_shoulder(jdbc,mem_id);
 				Food_main fm = new Food_main(jdbc,mem_id);
-				DetailPanel dp = new DetailPanel(jdbc,mem_id);
+				//DetailPanel dp = new DetailPanel(jdbc,mem_id);
 	            InsertPanel ip = new InsertPanel(jdbc,mem_id);
 	            CRUD crud = new CRUD(jdbc, mem_id);
 	            Board board = new Board(mem_id);	// 새로추가
