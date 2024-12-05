@@ -26,10 +26,12 @@ public class Board extends JPanel {
 	private CRUD crud;
     private JTable table;
     private DetailPanel detailPanel; // DetailPanel 참조
+    private ViewPanel viewPanel;	 // ViewPanel 참조
     private InsertPanel insertPanel; // InsertPanel 참조
     private JPanel boardPanel;       // 현재 Board2 패널 참조
     private DefaultTableModel model;
     private JTextField searchField;
+    static String member_id;
     
     int boa_no;
     String boa_name;
@@ -42,10 +44,22 @@ public class Board extends JPanel {
     public Board() {
 		// TODO Auto-generated constructor stub
 	}
+    
+    
+    
+    public Board(String mem_id) {
+    	this.member_id = mem_id;
+	}
 
     public Board(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
     	this.crud = crud;
+    	
+    	// 기본 패널 초기화
+    	this.detailPanel = new DetailPanel(jdbc, crud);
+        this.viewPanel = new ViewPanel(jdbc, crud, member_id);
+        this.insertPanel = new InsertPanel(jdbc, crud);
+        this.boardPanel = this;
     	
         // 테이블 초기화
         String[] header = {"번호", "제목", "아이디", "등급", "좋아요수", "작성일자"};
@@ -234,32 +248,19 @@ public class Board extends JPanel {
         List<Object[]> list = crud.loadTable(model);
         jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
         selectTable1();
+        
     }
     
-    // 데이터를 설정하는 메서드
-    public void setTexts(int boa_no, String boa_name, String boa_write, int boa_like, String boa_date, String mem_id, int mem_rank) {
-    	this.boa_no = boa_no;
-        this.boa_name = boa_name;
-        this.boa_write = boa_write;
-        this.boa_date = boa_date;
-        this.boa_like = boa_like;
-        this.mem_id = mem_id;
-        this.mem_rank = mem_rank;
-    }
+    
 
-    
-    // DetailPanel과 Board2 참조 설정 메서드
-    public void setBoardPanel(DetailPanel detailPanel, InsertPanel insertPanel, JPanel boardPanel) {
-        this.detailPanel = detailPanel;
-        this.insertPanel = insertPanel;
-        this.boardPanel = boardPanel;
-    }
     
     
     // 기본(default) 정렬시 레코드 선택 메서드
     void selectTable1() {
 	    // 레코드 선택 시 이벤트 처리
+    	
 	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+	    	
 	        @Override
 	        public void valueChanged(ListSelectionEvent e) {
 	            // 값이 변경되었을 때 처리
@@ -280,14 +281,14 @@ public class Board extends JPanel {
 	                    String boa_date = (String) rowData[4];
 	                    String mem_id = (String) rowData[5];
 	                    int mem_rank = (Integer) rowData[6];
-	
-	                    // DetailPanel에 데이터 전달
-	                    detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	                    setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
-	
-	                    // 화면 전환
-	                    boardPanel.setVisible(false); // Board2 숨김
-	                    detailPanel.setVisible(true); // DetailPanel 표시
+	                    
+                        // DetailPanel에 데이터 전달
+                        viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+                        setTexts(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
+
+                        // 화면 전환
+                        boardPanel.setVisible(false); // Board2 숨김
+                        viewPanel.setVisible(true); // DetailPanel 표시
 	                }
 	            }
 	        }
@@ -354,7 +355,6 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_notice = (Integer) rowData[3];
 	                    int boa_like = (Integer) rowData[4];
 	                    String boa_date = (String) rowData[5];
 	                    String mem_id = (String) rowData[6];
@@ -394,7 +394,6 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_notice = (Integer) rowData[3];
 	                    int boa_like = (Integer) rowData[4];
 	                    String boa_date = (String) rowData[5];
 	                    String mem_id = (String) rowData[6];
@@ -434,7 +433,6 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_notice = (Integer) rowData[3];
 	                    int boa_like = (Integer) rowData[4];
 	                    String boa_date = (String) rowData[5];
 	                    String mem_id = (String) rowData[6];
@@ -451,5 +449,31 @@ public class Board extends JPanel {
 	            }
 	        }
 	    });
+    }
+	     
+    // 데이터를 설정하는 메서드
+    public void setTexts(int boa_no, String boa_name, String boa_write, int boa_like, String boa_date, String mem_id, int mem_rank) {
+    	this.boa_no = boa_no;
+        this.boa_name = boa_name;
+        this.boa_write = boa_write;
+        this.boa_date = boa_date;
+        this.boa_like = boa_like;
+        this.mem_id = mem_id;
+        this.mem_rank = mem_rank;
+    }
+
+    
+    // DetailPanel과 BoardMain 참조 설정 메서드
+    public void setBoardPanel(DetailPanel detailPanel, InsertPanel insertPanel, JPanel boardPanel) {
+        this.detailPanel = detailPanel;
+        this.insertPanel = insertPanel;
+        this.boardPanel = boardPanel;
+    }
+    
+    // ViewPanel과 BoardMain 참조 설정 메서드
+    public void setBoardPanel(ViewPanel viewPanel, InsertPanel insertPanel, JPanel boardPanel) {
+        this.viewPanel = viewPanel;
+        this.insertPanel = insertPanel;
+        this.boardPanel = boardPanel;
     }
 }

@@ -36,21 +36,28 @@ public class BoardMain extends JFrame {
        insertPanel.setBounds(0, 100, 1186, 663);
        insertPanel.setLayout(new BorderLayout(0, 0));
        
+       ViewPanel viewPanel = new ViewPanel(jdbc, crud, mem_id);
+       viewPanel.setBounds(0, 100, 1186, 663);
+       viewPanel.setLayout(new BorderLayout(0, 0));
+       
        // 패널 추가
        getContentPane().add(headerPanel, BorderLayout.NORTH);
        getContentPane().add(boardPanel, BorderLayout.CENTER);
        getContentPane().add(detailPanel, BorderLayout.CENTER);
        getContentPane().add(insertPanel, BorderLayout.CENTER);
+       getContentPane().add(viewPanel, BorderLayout.CENTER);
        
        // 기본 화면 설정
        boardPanel.setVisible(true);
        detailPanel.setVisible(false);
        insertPanel.setVisible(false);
+       viewPanel.setVisible(false);
 
        // Board2에서 DetailPanel에 접근할 수 있도록 연결
        boardPanel.setBoardPanel(detailPanel, insertPanel, boardPanel);        
        detailPanel.setDetailPanel(boardPanel, detailPanel);        
-       insertPanel.setInsertPanel(boardPanel, insertPanel);       
+       insertPanel.setInsertPanel(boardPanel, insertPanel);
+       viewPanel.setViewPanel(boardPanel, viewPanel);
 
        setVisible(true);
         

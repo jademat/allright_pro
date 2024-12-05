@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import admininstrator.Administrator_main;
+import board.Board;
 import board.BoardMain;
 import board.CRUD;
 import board.DetailPanel;
 import board.InsertPanel;
+import board.ViewPanel;
 import food.Food_main;
 import header.Header;
 import jdbc.JDBC;
@@ -185,6 +187,8 @@ public class Login extends JFrame {
 				DetailPanel dp = new DetailPanel(jdbc,mem_id);
 	            InsertPanel ip = new InsertPanel(jdbc,mem_id);
 	            CRUD crud = new CRUD(jdbc, mem_id);
+	            Board board = new Board(mem_id);	// 새로추가
+	            ViewPanel vp = new ViewPanel(jdbc, mem_id);	// 새로추가
 				
 			} else {
 				// 로그인 실패
