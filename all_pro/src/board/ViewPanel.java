@@ -27,10 +27,9 @@ public class ViewPanel extends JPanel {
     
 
 
-    public ViewPanel(JDBC jdbc, CRUD crud, String mem_id) {
+    public ViewPanel(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
     	this.crud = crud;
-    	this.mem_id = mem_id;
     	
         setLayout(null);
 
@@ -128,6 +127,7 @@ public class ViewPanel extends JPanel {
     
     public ViewPanel(JDBC jdbc, String mem_id) {
     	this.jdbc = jdbc;
+    	this.mem_id = mem_id;
     	
     }
 

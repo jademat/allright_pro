@@ -36,7 +36,7 @@ public class BoardMain extends JFrame {
        insertPanel.setBounds(0, 100, 1186, 663);
        insertPanel.setLayout(new BorderLayout(0, 0));
        
-       ViewPanel viewPanel = new ViewPanel(jdbc, crud, mem_id);
+       ViewPanel viewPanel = new ViewPanel(jdbc, crud);
        viewPanel.setBounds(0, 100, 1186, 663);
        viewPanel.setLayout(new BorderLayout(0, 0));
        

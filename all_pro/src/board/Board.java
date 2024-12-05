@@ -56,7 +56,7 @@ public class Board extends JPanel {
     	
     	// 기본 패널 초기화
     	this.detailPanel = new DetailPanel(jdbc, crud);
-        this.viewPanel = new ViewPanel(jdbc, crud, member_id);
+        this.viewPanel = new ViewPanel(jdbc, crud);
         this.insertPanel = new InsertPanel(jdbc, crud);
         this.boardPanel = this;
     	
@@ -254,6 +254,7 @@ public class Board extends JPanel {
                         // 화면 전환
                         boardPanel.setVisible(false); // Board2 숨김
                         viewPanel.setVisible(true); // DetailPanel 표시
+                        System.out.println("board no >>> " + boa_no);
 	                }
 	            }
 	        }
