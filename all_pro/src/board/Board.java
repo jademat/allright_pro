@@ -1,14 +1,17 @@
 package board;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,32 +19,28 @@ import javax.swing.table.DefaultTableModel;
 
 import jdbc.JDBC;
 
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-
 public class Board extends JPanel {
 	private JDBC jdbc;
 	private CRUD crud;
-    private JTable table;
-    private DetailPanel detailPanel; // DetailPanel 참조
-    private ViewPanel viewPanel;	 // ViewPanel 참조
-    private InsertPanel insertPanel; // InsertPanel 참조
-    private JPanel boardPanel;       // 현재 Board2 패널 참조
-    private DefaultTableModel model;
-    private JTextField searchField;
-    static String member_id;
-    
-    int boa_no;
-    String boa_name;
-    String boa_write;
-    int boa_like;
-    String boa_date;
-    String mem_id;
-    int mem_rank;
-    
-    public Board() {
+
+	private JTable table;
+	private DetailPanel detailPanel; // DetailPanel 참조
+	private InsertPanel insertPanel; // InsertPanel 참조
+	private ViewPanel viewPanel;
+	private JPanel boardPanel; // 현재 Board2 패널 참조
+	private DefaultTableModel model;
+	private JTextField searchField;
+	String member_id;
+	
+	int boa_no;
+	String boa_name;
+	String boa_write;
+	int boa_like;
+	String boa_date;
+	String mem_id;
+	int mem_rank;
+
+	public Board() {
 		// TODO Auto-generated constructor stub
 	}
     
@@ -67,173 +66,140 @@ public class Board extends JPanel {
         table = new JTable(model);
         table.setBackground(new Color(255, 255, 255));
 
-        // 레이아웃 설정
-        setLayout(null);
-        setBackground(Color.WHITE);
-        JScrollPane scrollPane = new JScrollPane(
-            table,
-            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
-        );
-        scrollPane.setBounds(150, 100, 900, 450);
-        add(scrollPane);
-        
-// 새로고침버튼 삭제 예정
-//        // refreshButton(새로고침) 버튼 
-//        JButton refreshButton = new JButton("REFRESH");
-//        refreshButton.setForeground(new Color(238, 57, 8));
-//        refreshButton.setFont(new Font("굴림", Font.BOLD, 14));
-//        refreshButton.setBackground(new Color(0, 0, 0));
-//        refreshButton.setBounds(150, 585, 112, 35);
-//        add(refreshButton);
-        
-        // insertButton(글작성) 버튼
-        JButton insertButton = new JButton("WRITE");
-        insertButton.setFont(new Font("굴림", Font.BOLD, 14));
-        insertButton.setForeground(new Color(238, 57, 8));
-        insertButton.setBackground(new Color(0, 0, 0));
-        insertButton.setBounds(938, 585, 112, 35);
-        add(insertButton);
-        
-//        // "BOARD" 라벨
-//        JLabel lblNewLabel = new JLabel("BOARD");
-//        lblNewLabel.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 40));
-//        lblNewLabel.setForeground(new Color(238, 57, 8));
-//        lblNewLabel.setBounds(150, 21, 419, 57);
-//        add(lblNewLabel);
-        
-        // 정렬 comboBox
-        String[] sort = {"----- 기본 -----", "번호 오름차순", "인기글순", "등급순"};
-        JComboBox<String> comboBox = new JComboBox<String>(sort);
-        comboBox.setBounds(917, 62, 133, 27);
-        add(comboBox);
-        
-        // 검색(search) textField, button, jcomboBox
-        searchField = new JTextField();
-        searchField.setBounds(234, 63, 324, 25);
-        add(searchField);
-        JButton searchBtn = new JButton("검색");
-        searchBtn.setBounds(581, 62, 99, 28);
-        add(searchBtn);
-        String[] searchSort = {"제목", "본문", "작성자", "작성일"};
-        JComboBox<String> searchBox = new JComboBox<String>(searchSort);
-        searchBox.setBounds(150, 63, 83, 25);
-        add(searchBox);
-        
-// 새로고침버튼 삭제 예정
-//        // refreshButton(새로고침) 이벤트 처리
-//        refreshButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				jdbc.connect();
-//		        model.setRowCount(0);
-//		        List<Object[]> list = crud.loadTable(model);
-//		        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
-//			}
-//		});
-        
-        
-        // insertButton(글작성) 이벤트 처리
-        insertButton.addActionListener(new ActionListener() {			
+
+		// 레이아웃 설정
+		setLayout(null);
+		setBackground(Color.WHITE);
+		JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(150, 100, 900, 450);
+		add(scrollPane);
+
+		// insertButton(글작성) 버튼
+		JButton insertButton = new JButton("WRITE");
+		insertButton.setFont(new Font("굴림", Font.BOLD, 14));
+		insertButton.setForeground(new Color(238, 57, 8));
+		insertButton.setBackground(new Color(0, 0, 0));
+		insertButton.setBounds(938, 585, 112, 35);
+		add(insertButton);
+
+		// 정렬 comboBox
+		String[] sort = { "----- 기본 -----", "번호 오름차순", "인기글순", "등급순" };
+		JComboBox<String> comboBox = new JComboBox<String>(sort);
+		comboBox.setBounds(917, 62, 133, 27);
+		add(comboBox);
+
+		// 검색(search) textField, button, jcomboBox
+		searchField = new JTextField();
+		searchField.setBounds(234, 63, 324, 25);
+		add(searchField);
+		JButton searchBtn = new JButton("검색");
+		searchBtn.setBounds(581, 62, 99, 28);
+		add(searchBtn);
+		String[] searchSort = { "제목", "본문", "작성자", "작성일" };
+		JComboBox<String> searchBox = new JComboBox<String>(searchSort);
+		searchBox.setBounds(150, 63, 83, 25);
+		add(searchBox);
+
+		// insertButton(글작성) 이벤트 처리
+		insertButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boardPanel.setVisible(false); // Board2 숨김
-                insertPanel.setVisible(true);  // InsertPanel 표시				
+				insertPanel.setVisible(true); // InsertPanel 표시
 			}
 		});
-        
-        // comboBox(정렬) 이벤트 처리
-        comboBox.addActionListener(new ActionListener() {
+
+		// comboBox(정렬) 이벤트 처리
+		comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JComboBox<String> selectComboBox =(JComboBox<String>)e.getSource();
-				//System.out.println(selectComboBox.getSelectedIndex()); 
+				JComboBox<String> selectComboBox = (JComboBox<String>) e.getSource();
+				// System.out.println(selectComboBox.getSelectedIndex());
 				switch (selectComboBox.getSelectedIndex()) {
-					// 기본(default) 정렬
-					case 0 :
-						jdbc.connect();
-				        model.setRowCount(0);
-				        List<Object[]> list = crud.loadTable(model);
-				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
-				        selectTable1();
-				        break;
-				        
-				    // 번호 오름차순 정렬
-					case 1 :
-						jdbc.connect();
-				        model.setRowCount(0);
-				        List<Object[]> list2 = crud.loadTable2(model);
-				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
-				        selectTable2();
-				        break;
-				        
-					// 인기글순 정렬
-					case 2 :
-						jdbc.connect();
-				        model.setRowCount(0);
-				        List<Object[]> list3 = crud.loadTable3(model);
-				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
-				        selectTable3();
-				        break;
-				        
-					// 등급순 정렬
-					case 3 :
-						jdbc.connect();
-				        model.setRowCount(0);
-				        List<Object[]> list4 = crud.loadTable4(model);
-				        jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
-				        selectTable4();
-				        break;
+				// 기본(default) 정렬
+				case 0:
+					jdbc.connect();
+					model.setRowCount(0);
+					List<Object[]> list = crud.loadTable(model);
+					jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+					selectTable1();
+					break;
+
+				// 번호 오름차순 정렬
+				case 1:
+					jdbc.connect();
+					model.setRowCount(0);
+					List<Object[]> list2 = crud.loadTable2(model);
+					jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+					selectTable2();
+					break;
+
+				// 인기글순 정렬
+				case 2:
+					jdbc.connect();
+					model.setRowCount(0);
+					List<Object[]> list3 = crud.loadTable3(model);
+					jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+					selectTable3();
+					break;
+
+				// 등급순 정렬
+				case 3:
+					jdbc.connect();
+					model.setRowCount(0);
+					List<Object[]> list4 = crud.loadTable4(model);
+					jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
+					selectTable4();
+					break;
 				} // switch 문 end
 			}
-		});	// comboBox(정렬) 이벤트 처리 end
-        
-        
-        // searchBox(검색정렬) 이벤트 처리
-        searchBox.addActionListener(new ActionListener() {	
+		}); // comboBox(정렬) 이벤트 처리 end
+
+		// searchBox(검색정렬) 이벤트 처리
+		searchBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JComboBox<String> selectComboBox =(JComboBox<String>)e.getSource();
-				//System.out.println(selectComboBox.getSelectedIndex()); 
+				JComboBox<String> selectComboBox = (JComboBox<String>) e.getSource();
+				// System.out.println(selectComboBox.getSelectedIndex());
 				switch (selectComboBox.getSelectedIndex()) {
-					// 제목 검색
-					case 0 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
-			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_name LIKE ?"
-			    	    		+ " ORDER BY boa_no DESC";
-				        break;
-				        
-				    // 본문 검색
-					case 1 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
-			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_write LIKE ?"
-			    	    		+ "ORDER BY boa_no DESC";
-				        break;
-				        
-					// 작성자 검색
-					case 2 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
-			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE m.mem_id LIKE ?"
-			    	    		+ "ORDER BY boa_no DESC";
-				        break;
-				        
-					// 작성일 검색
-					case 3 :
-						jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
-			    	    		+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_date LIKE ?"
-			    	    		+ "ORDER BY boa_no DESC";
-				        break;
+				// 제목 검색
+				case 0:
+					jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+							+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_name LIKE ?"
+							+ " ORDER BY boa_no DESC";
+					break;
+
+				// 본문 검색
+				case 1:
+					jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+							+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_write LIKE ?"
+							+ "ORDER BY boa_no DESC";
+					break;
+
+				// 작성자 검색
+				case 2:
+					jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+							+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE m.mem_id LIKE ?"
+							+ "ORDER BY boa_no DESC";
+					break;
+
+				// 작성일 검색
+				case 3:
+					jdbc.sql = "SELECT boa_no, boa_name, boa_write, boa_like, boa_date, b.mem_id, mem_rank"
+							+ " FROM board b JOIN member m ON b.mem_id = m.mem_id WHERE boa_date LIKE ?"
+							+ "ORDER BY boa_no DESC";
+					break;
 				} // switch 문 end
 			}
 		});
-        
-        
-        // searchBtn(검색) 이벤트 처리
-        searchBtn.addActionListener(new ActionListener() {	
+
+		// searchBtn(검색) 이벤트 처리
+		searchBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jdbc.connect();
-				String searchText = "%"+searchField.getText()+"%";
+				String searchText = "%" + searchField.getText() + "%";
 				model.setRowCount(0);
 				List<Object[]> list5 = crud.searchBoard(searchText, model);
 				jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res);
@@ -250,7 +216,6 @@ public class Board extends JPanel {
         selectTable1();
         
     }
-    
     
 
     
@@ -476,4 +441,5 @@ public class Board extends JPanel {
         this.insertPanel = insertPanel;
         this.boardPanel = boardPanel;
     }
+
 }

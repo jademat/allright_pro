@@ -189,6 +189,7 @@ public class Login extends JFrame {
 	            CRUD crud = new CRUD(jdbc, mem_id);
 	            Board board = new Board(mem_id);	// 새로추가
 	            ViewPanel vp = new ViewPanel(jdbc, mem_id);	// 새로추가
+	            My_board my = new My_board(jdbc,mem_id);
 				
 			} else {
 				// 로그인 실패

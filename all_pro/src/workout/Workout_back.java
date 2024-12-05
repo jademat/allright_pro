@@ -123,8 +123,10 @@ public class Workout_back extends JFrame {
         cardLayout = new CardLayout();
         imagePanel = new JPanel(cardLayout);
         imagePanel.setBounds(220, 150, 800, 400);  // 이미지 패널 위치 변경
-        imagePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        getContentPane().add(imagePanel);
+        imagePanel.setBackground(Color.WHITE);  // 이미지 패널의 배경을 흰색으로 설정
+        imagePanel.setBorder(BorderFactory.createEmptyBorder());  // 테두리 제거
+
+         getContentPane().add(imagePanel);
 
         // 데이터베이스에서 운동 데이터 가져오기
         exercises = getExercisesFromDatabase();
@@ -226,7 +228,9 @@ public class Workout_back extends JFrame {
     private void addImageToCardPanel(String imagePath, String title) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-
+        panel.setBackground(null);  // 배경을 투명으로 설정
+        panel.setBorder(null);
+        
         ImageIcon imageIcon = new ImageIcon(imagePath);
         JLabel imageLabel = new JLabel(imageIcon);
 
