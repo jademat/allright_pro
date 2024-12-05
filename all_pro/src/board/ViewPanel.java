@@ -24,9 +24,6 @@ public class ViewPanel extends JPanel {
     
     Board board = new Board();
     
-    
-
-
     public ViewPanel(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
     	this.crud = crud;
@@ -134,7 +131,9 @@ public class ViewPanel extends JPanel {
 
     // 데이터를 설정하는 메서드
     public void setViews(int boa_no, String boa_name, String boa_write, int boa_like, String boa_date, String mem_id, int mem_rank) {
-        board_no.setText(String.valueOf(boa_no));
+        
+    	System.out.println("setViews board_no >>> " + boa_no);
+    	board_no.setText(String.valueOf(boa_no));
         board_name.setText(boa_name);
         board_write.setText(boa_write);
         board_date.setText(boa_date);
