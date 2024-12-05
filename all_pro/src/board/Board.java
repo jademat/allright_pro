@@ -230,11 +230,13 @@ public class Board extends JPanel {
 	        public void valueChanged(ListSelectionEvent e) {
 	            // 값이 변경되었을 때 처리
 	            int selectedRow = table.getSelectedRow(); // 선택된 행
+
 	            if (!e.getValueIsAdjusting() && selectedRow != -1) { // 이벤트가 최종 선택 시 실행
 	                jdbc.connect(); // JDBC 연결 초기화
 	                model.setRowCount(0); // 테이블 초기화
 	                List<Object[]> list = crud.loadTable(model); // 새로 데이터 로드
 	                jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
+	                
 	                
 	                // 새로 로드된 데이터에서 선택된 행에 접근
 	                if (selectedRow < list.size()) { // 선택된 행이 유효할 경우에만 처리
@@ -254,7 +256,6 @@ public class Board extends JPanel {
                         // 화면 전환
                         boardPanel.setVisible(false); // Board2 숨김
                         viewPanel.setVisible(true); // DetailPanel 표시
-                        System.out.println("board no >>> " + boa_no);
 	                }
 	            }
 	        }

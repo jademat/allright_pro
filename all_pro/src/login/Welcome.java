@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,11 +31,15 @@ public class Welcome extends JFrame {
         contentPanel.setLayout(null);
 
         JLabel welcomeLabel = new JLabel("WELCOME ALL RIGHT");
-        welcomeLabel.setForeground(Color.RED);
-        welcomeLabel.setFont(new Font("굴림", Font.BOLD, 50));
-        welcomeLabel.setBounds(317, 88, 635, 100);
+        welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setFont(new Font("Segoe Script", Font.BOLD, 50));
+        welcomeLabel.setBounds(65, 68, 618, 92);
         contentPanel.add(welcomeLabel);
 
+        JLabel back = new JLabel();
+		back.setIcon(new ImageIcon("backimage/dumbbell.jpg"));
+		back.setBounds(0, 0, 1200, 800);
+		contentPanel.add(back);
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         
     }

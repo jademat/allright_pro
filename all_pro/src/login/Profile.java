@@ -270,22 +270,6 @@ public class Profile extends JFrame {
 			if (!su.isValidPass(password)) {
 				return;
 			}
-			
-			// 연락처 중복체크
-			jdbc.sql = "SELECT COUNT(*) FROM member WHERE mem_ph = ?";
-			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
-			jdbc.pstmt.setString(1, phText.getText());
-			jdbc.res = jdbc.pstmt.executeQuery();
-
-			if (jdbc.res.next()) {
-				int count = jdbc.res.getInt(1);
-				if (count > 0) {
-					JOptionPane.showMessageDialog(null, "이미 존재하는 연락처입니다.");
-					phText.requestFocus();
-					return; // 연락처 중복 시 종료
-				}
-			}
-
 
 			jdbc.sql = "update member set mem_pass = ? , mem_name = ?, mem_age = ? , mem_ph = ?, mem_addr = ? , mem_job =?"
 					+ "where mem_id = ?";

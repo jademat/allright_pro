@@ -21,7 +21,7 @@ public class Workout_main extends JFrame {
       getContentPane().setBackground(new Color(255, 255, 255));
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setBounds(0, 0, 1200, 800); // 창 크기 변경
-      setBackground(Color.BLACK);
+      getContentPane().setBackground(Color.BLACK);
       setTitle("운동 메인");
 
       getContentPane().setLayout(null);
@@ -38,6 +38,9 @@ public class Workout_main extends JFrame {
       JButton chestButton = new JButton("가슴");
       chestButton.setBounds(30, 200, 150, 50); // 위치 및 크기 조정
       getContentPane().add(chestButton);
+      chestButton.setBackground(Color.BLACK);
+      chestButton.setForeground(Color.WHITE);
+
 
       JButton backButton = new JButton("등");
       backButton.setBounds(30, 270, 150, 50); // 위치 및 크기 조정
