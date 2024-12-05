@@ -34,6 +34,7 @@ public class Food_main extends JFrame {
     public Food_main() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기 변경 (1200x800)
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(0, 0, 0));
@@ -70,6 +71,7 @@ public class Food_main extends JFrame {
 
         // 검색 버튼 설정
         JButton searchButton = new JButton("검색");
+        searchButton.setBackground(new Color(255, 255, 255));
         searchButton.setFont(new Font("맑은 고딕", Font.PLAIN, 24));
         searchButton.setBounds(750, 150, 150, 40);
         contentPane.add(searchButton);
@@ -80,6 +82,10 @@ public class Food_main extends JFrame {
         resultLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 24));
         resultLabel.setBounds(100, 250, 1000, 40);
         contentPane.add(resultLabel);
+        
+        JLabel foodLable= new JLabel(new ImageIcon("image/food.png"));
+        foodLable.setBounds(300, 300, 400, 400);
+        contentPane.add(foodLable);
 
         // 검색 버튼 클릭 시 이벤트 처리
         searchButton.addActionListener(e -> {

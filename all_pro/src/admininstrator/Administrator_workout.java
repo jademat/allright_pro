@@ -14,7 +14,7 @@ import java.sql.*;
 public class Administrator_workout extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
+    static String mem_id;
    JDBC jdbc = new JDBC();  // JDBC 객체를 클래스 멤버로 선언
 
     JTextField jtf1, jtf2, jtf3, jtfImagePath;  // 이미지 경로를 위한 텍스트 필드 추가
@@ -27,6 +27,7 @@ public class Administrator_workout extends JFrame {
     public Administrator_workout() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기 설정
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -355,6 +356,10 @@ public class Administrator_workout extends JFrame {
         group.clearSelection();
         jtfImagePath.setText("");
     }
+    public Administrator_workout(JDBC jdbc, String mem_id) {
+        this.mem_id = mem_id;
+
+     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

@@ -2,11 +2,15 @@ package admininstrator;
 import java.awt.*;
 import javax.swing.*;
 
+import jdbc.JDBC;
+
 public class Administrator_main extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     public JTextArea textArea;
-
+    static String mem_id;
+    JDBC jdbc = new JDBC();
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -31,7 +35,7 @@ public class Administrator_main extends JFrame {
         contentPane.setLayout(null);
         
         // 아이콘 로그아웃 버튼
-        Icon icon= new Icon();
+        Icon icon= new Icon(jdbc,mem_id);
         icon.addToPanel(contentPane);
 
         // 버튼 크기와 간격 설정

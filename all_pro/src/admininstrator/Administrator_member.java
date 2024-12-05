@@ -17,7 +17,8 @@ public class Administrator_member extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
+    static String mem_id;
+    
     JDBC jdbc = new JDBC();
 
     JTextField jtf1;
@@ -29,6 +30,7 @@ public class Administrator_member extends JFrame {
     public Administrator_member() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기 설정
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import header.Header;
 import jdbc.JDBC;
+import java.awt.Color;
 
 public class BoardMain extends JFrame {
 	static String mem_id;
@@ -16,6 +17,7 @@ public class BoardMain extends JFrame {
 	   
 	   setTitle("운동관리시스템");
        setSize(1200, 800);
+       setLocationRelativeTo(null);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
        // Header 패널
@@ -25,6 +27,7 @@ public class BoardMain extends JFrame {
        
        // 패널 초기화
        Board boardPanel = new Board(jdbc, crud);
+       boardPanel.setBackground(new Color(0, 0, 0));
        boardPanel.setBounds(0, 100, 1186, 663);
        boardPanel.setLayout(new BorderLayout(0, 0));
 

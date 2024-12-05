@@ -19,6 +19,7 @@ import jdbc.JDBC;
 import login.Login;
 import login.My_board;
 import login.Profile;
+import login.Welcome;
 import workout.Workout_main;
 
 public class Header extends JPanel {
@@ -35,13 +36,22 @@ public class Header extends JPanel {
 
         // 로고 추가
         JLabel logoLabel = new JLabel(new ImageIcon("backimage/logo.png"));
+        logoLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		SwingUtilities.getWindowAncestor(Header.this).dispose();
+        		Welcome wm = new Welcome(jdbc, mem_id);
+        		wm.setVisible(true);
+        	}
+		});
+        
         logoLabel.setBounds(10, 10, 150, 80); // 크기 및 위치 설정
         add(logoLabel);
 
         JLabel exeLabel = new JLabel("EXERCISE");
         exeLabel.addMouseListener(new MouseAdapter() {
         	@Override
-        	public void mouseClicked(MouseEvent e) {
+        	public void mouseClicked(MouseEvent e){
         		SwingUtilities.getWindowAncestor(Header.this).dispose();
         		Workout_main wm = new Workout_main();
         		wm.setVisible(true);

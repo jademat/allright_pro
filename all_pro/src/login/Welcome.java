@@ -18,6 +18,7 @@ public class Welcome extends JFrame {
     	setTitle("Welcome Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 800);
+        setLocationRelativeTo(null);
         getContentPane().setLayout(new BorderLayout());
 
         // 상단에 헤더 추가

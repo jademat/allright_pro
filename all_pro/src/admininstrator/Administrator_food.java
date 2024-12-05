@@ -17,7 +17,7 @@ public class Administrator_food extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-
+    static String mem_id;
     JDBC jdbc = new JDBC();
 
     JTextField jtf1, jtf2, jtf3;
@@ -29,6 +29,7 @@ public class Administrator_food extends JFrame {
     public Administrator_food() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800); // 창 크기를 1200x800으로 설정
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

@@ -77,7 +77,8 @@ public class Workout_chest extends JFrame {
         setTitle("가슴 운동");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 1200, 800);
-        getContentPane().setBackground(Color.WHITE);
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.black);
         getContentPane().setLayout(null);
 
         
@@ -85,44 +86,120 @@ public class Workout_chest extends JFrame {
         header.setBounds(0, 0, 1200, 100); // Header 위치 설정
         getContentPane().add(header);
         
-        // 운동 버튼들
-        JButton chestButton = new JButton("가슴");
-        chestButton.setBounds(30, 150, 150, 50);  // 위치 및 크기 조정
-        getContentPane().add(chestButton);
+        
+        JLabel chestLabel = new JLabel("CHEST");
+        chestLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        chestLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_chest wm = new Workout_chest();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        JLabel backLabel = new JLabel("BACK");
+        backLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        backLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_back wm = new Workout_back();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        JLabel shoulderLabel = new JLabel("SHOULDER");
+        shoulderLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        shoulderLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_shoulder wm = new Workout_shoulder();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        JLabel armLabel = new JLabel("ARM");
+        armLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        armLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_arm wm = new Workout_arm();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        JLabel legsLabel = new JLabel("lEGS");
+        legsLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        legsLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_legs wm = new Workout_legs();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        JLabel returnLabel = new JLabel("RETURN");
+        returnLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        returnLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		Workout_main wm = new Workout_main();
+        		wm.setVisible(true);
+        		dispose();
+        	}
+        });
+        
+        
+        
+        
+        chestLabel.setForeground(Color.WHITE);
+        chestLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        chestLabel.setBounds(40, 150, 150, 50);
+        getContentPane().add(chestLabel);
+        
+       
+        backLabel.setForeground(Color.WHITE);
+        backLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        backLabel.setBounds(40, 220, 150, 50); // 위치 및 크기 조정
+        getContentPane().add(backLabel);
 
-        JButton backButton = new JButton("등");
-        backButton.setBounds(30, 220, 150, 50);  // 위치 및 크기 조정
-        getContentPane().add(backButton);
+        shoulderLabel.setForeground(Color.WHITE);
+        shoulderLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        shoulderLabel.setBounds(40, 290, 150, 50); // 위치 및 크기 조정
+        getContentPane().add(shoulderLabel);
 
-        JButton shoulderButton = new JButton("어깨");
-        shoulderButton.setBounds(30, 290, 150, 50);  // 위치 및 크기 조정
-        getContentPane().add(shoulderButton);
+        legsLabel.setForeground(Color.WHITE);
+        legsLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        legsLabel.setBounds(40, 360, 150, 50); // 위치 및 크기 조정
+        getContentPane().add(legsLabel);
 
-        JButton legsButton = new JButton("하체");
-        legsButton.setBounds(30, 360, 150, 50);  // 위치 및 크기 조정
-        getContentPane().add(legsButton);
-
-        JButton armButton = new JButton("팔");
-        armButton.setBounds(30, 430, 150, 50);  // 위치 및 크기 조정
-        getContentPane().add(armButton);
-
-        JButton returnButton = new JButton("돌아가기");
-        returnButton.setBounds(30, 500, 150, 50);
-        getContentPane().add(returnButton);
-
-        JButton prevButton = new JButton("이전");
-        prevButton.setBounds(250, 600, 100, 30);  // 버튼 위치 설정
+        armLabel.setForeground(Color.WHITE);
+        armLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        armLabel.setBounds(40, 430, 150, 50); // 위치 및 크기 조정
+        getContentPane().add(armLabel);
+        
+        returnLabel.setForeground(Color.WHITE);
+        returnLabel.setFont(new Font("굴림", Font.BOLD, 25));
+        returnLabel.setBounds(40, 500, 150, 50); // 위치 및 크기 조정
+        getContentPane().add(returnLabel);
+        
+        JButton prevButton = new JButton(new ImageIcon("image/left.png"));
+        prevButton.setBounds(250, 600, 80, 61);  // 버튼 위치 설정
         getContentPane().add(prevButton);
 
-        JButton nextButton = new JButton("다음");
-        nextButton.setBounds(360, 600, 100, 30);  // 버튼 위치 설정
+        JButton nextButton = new JButton(new ImageIcon("image/right.png"));
+        nextButton.setBounds(350, 600, 80,61);  // 버튼 위치 설정
         getContentPane().add(nextButton);
 
         // 이미지 슬라이드 패널
         cardLayout = new CardLayout();
         imagePanel = new JPanel(cardLayout);
         imagePanel.setBounds(220, 150, 800, 400);  // 이미지 패널 위치 변경
-        imagePanel.setBackground(Color.WHITE);  // 이미지 패널의 배경을 흰색으로 설정
+        imagePanel.setBackground(new Color(0, 0, 0));  // 이미지 패널의 배경을 흰색으로 설정
         imagePanel.setBorder(BorderFactory.createEmptyBorder());  // 테두리 제거
 
         getContentPane().add(imagePanel);
@@ -143,12 +220,14 @@ public class Workout_chest extends JFrame {
         titleLabel = new JLabel(exercises.get(0).getName(), SwingConstants.CENTER);
         titleLabel.setBounds(220, 120, 800, 30);  // 제목 라벨 위치를 이미지 바로 위로 이동
         titleLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 20));
+        titleLabel.setForeground(Color.white);
         getContentPane().add(titleLabel);
 
         // 설명 라벨
         descriptionLabel = new JLabel(exercises.get(0).getDescription(), SwingConstants.CENTER);
-        descriptionLabel.setBounds(220, 560, 800, 30);
-        descriptionLabel.setFont(new Font("Malgun Gothic", Font.PLAIN, 16));
+        descriptionLabel.setBounds(220, 550, 800, 30);
+        descriptionLabel.setFont(new Font("Malgun Gothic", Font.PLAIN, 15));
+        descriptionLabel.setForeground(Color.white);
         getContentPane().add(descriptionLabel);
 
         // 이벤트 설정
@@ -168,60 +247,7 @@ public class Workout_chest extends JFrame {
             }
         });
 
-        // 운동 버튼 이벤트 설정
-        legsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_legs legs = new Workout_legs();  // 하체 운동 페이지로 이동
-                legs.setVisible(true);
-                dispose();  // 현재 페이지 종료
-            }
-        });
-
-        armButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_arm arm = new Workout_arm();  // 팔 운동 페이지로 이동
-                arm.setVisible(true);
-                dispose();  // 현재 페이지 종료
-            }
-        });
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_back back = new Workout_back();  // 등 운동 페이지로 이동
-                back.setVisible(true);
-                dispose();  // 현재 페이지 종료
-            }
-        });
-
-        chestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_chest chest = new Workout_chest();  // 가슴 운동 페이지로 이동
-                chest.setVisible(true);
-                dispose();  // 현재 페이지 종료
-           }
-        });
-
-        shoulderButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_shoulder shoulder = new Workout_shoulder();
-                shoulder.setVisible(true);
-                dispose();
-            }
-        });
-
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Workout_main mainPage = new Workout_main();
-                mainPage.setVisible(true);
-                dispose();
-            }
-        });
+        
     }
 
     private void addImageToCardPanel(String imagePath, String title) {

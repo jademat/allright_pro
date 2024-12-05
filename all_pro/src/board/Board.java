@@ -3,6 +3,7 @@ package board;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.invoke.ConstantBootstraps;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -64,8 +65,8 @@ public class Board extends JPanel {
 		// insertButton(글작성) 버튼
 		JButton insertButton = new JButton("WRITE");
 		insertButton.setFont(new Font("굴림", Font.BOLD, 14));
-		insertButton.setForeground(new Color(238, 57, 8));
-		insertButton.setBackground(new Color(0, 0, 0));
+		insertButton.setForeground(Color.black);
+		insertButton.setBackground(Color.white);
 		insertButton.setBounds(938, 585, 112, 35);
 		add(insertButton);
 
@@ -73,15 +74,23 @@ public class Board extends JPanel {
 		String[] sort = { "----- 기본 -----", "번호 오름차순", "인기글순", "등급순" };
 		JComboBox<String> comboBox = new JComboBox<String>(sort);
 		comboBox.setBounds(917, 62, 133, 27);
+		comboBox.setBackground(Color.white);
+		comboBox.setForeground(Color.black);
 		add(comboBox);
 
 		// 검색(search) textField, button, jcomboBox
 		searchField = new JTextField();
 		searchField.setBounds(234, 63, 324, 25);
+		searchField.setBackground(Color.white);
+		searchField.setForeground(Color.black);
+		
 		add(searchField);
 		JButton searchBtn = new JButton("검색");
 		searchBtn.setBounds(581, 62, 99, 28);
+		searchBtn.setBackground(Color.white);
+		searchBtn.setForeground(Color.black);
 		add(searchBtn);
+		
 		String[] searchSort = { "제목", "본문", "작성자", "작성일" };
 		JComboBox<String> searchBox = new JComboBox<String>(searchSort);
 		searchBox.setBounds(150, 63, 83, 25);
