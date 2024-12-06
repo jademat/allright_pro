@@ -181,6 +181,12 @@ public class My_board extends JFrame {
                         // 화면 전환
                         mbContainer.setVisible(false); // My_Board 숨김
                         detailPanel.setVisible(true);  // DetailPanel 표시
+                        
+                        detailPanel.revalidate();
+                        detailPanel.repaint();
+                        System.out.println("mem_id >>> " + mem_id);
+                        System.out.println("boano >>> " + boa_no);
+                        
                     }
                     jdbc.close(jdbc.con, jdbc.pstmt, jdbc.res); // JDBC 자원 닫기
                 }
@@ -188,3 +194,4 @@ public class My_board extends JFrame {
         });
     }
 }
+

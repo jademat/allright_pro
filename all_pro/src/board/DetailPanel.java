@@ -25,6 +25,7 @@ public class DetailPanel extends JPanel {
     private JPanel mbContainer;
     static String mem_id;
     
+    
     Board board = new Board();
 
     /**
@@ -136,6 +137,7 @@ public class DetailPanel extends JPanel {
 
             detailPanel.setVisible(false); // DetailPanel 숨김
             boardPanel.setVisible(true);  // Board2 표시
+            
             }
         });
 

@@ -239,7 +239,7 @@ public class Profile extends JFrame {
 			String password = new String(passText.getPassword()); 
 
 			// 입력값 검증
-			JTextField[] textFields = { nameText, ageText, phText, addrText, jobText};
+			JTextField[] textFields = {nameText, ageText, phText, addrText, jobText};
 			JPasswordField[] passFields = {passText};
 
 			// 텍스트 필드가 비어 있으면 해당 필드에 포커스
@@ -270,6 +270,37 @@ public class Profile extends JFrame {
 			if (!su.isValidPass(password)) {
 				return;
 			}
+			
+			jdbc.sql = "SELECT COUNT(*) FROM member WHERE mem_ph = ? and mem_id != ?";
+			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
+			jdbc.pstmt.setString(1, phText.getText());
+			jdbc.pstmt.setString(2, mem_id);
+			jdbc.res = jdbc.pstmt.executeQuery();
+
+			if (jdbc.res.next()) {
+				int count = jdbc.res.getInt(1);
+				if (count > 0) {
+					JOptionPane.showMessageDialog(null, "이미 존재하는 연락처입니다.");
+					phText.requestFocus();
+					return; // 연락처 중복 시 종료
+				}
+			}
+
+			int age;
+			try {
+				age = Integer.parseInt(ageText.getText());
+				if (age < 0) {
+					throw new NumberFormatException("나이는 음수가 될 수 없습니다.");
+				}
+				if (age > 120) {
+					throw new NumberFormatException("다시 입력해주세요");
+				}
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "유효한 나이를 입력해주세요.");
+				ageText.requestFocus();
+				return;
+			}
+			
 
 			jdbc.sql = "update member set mem_pass = ? , mem_name = ?, mem_age = ? , mem_ph = ?, mem_addr = ? , mem_job =?"
 					+ "where mem_id = ?";

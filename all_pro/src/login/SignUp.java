@@ -239,7 +239,7 @@ JDBC jdbc = new JDBC();
 				if (age < 0) {
 					throw new NumberFormatException("나이는 음수가 될 수 없습니다.");
 				}
-				if (age > 100) {
+				if (age > 120) {
 					throw new NumberFormatException("다시 입력해주세요");
 				}
 			} catch (NumberFormatException ex) {
