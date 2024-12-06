@@ -331,7 +331,7 @@ public class Profile extends JFrame {
 		try {
 			jdbc.sql = "delete from member where mem_id = ?";
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
-			jdbc.pstmt.setInt(1, Integer.parseInt(mem_id));
+			jdbc.pstmt.setString(1,mem_id);
 			int res = jdbc.pstmt.executeUpdate();
 			if(res > 0) {
 				JOptionPane.showMessageDialog(null, "삭제 완료");

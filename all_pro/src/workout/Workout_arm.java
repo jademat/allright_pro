@@ -7,6 +7,7 @@ import admininstrator.Icon;
 import board.BoardMain;
 import header.Header;
 import jdbc.JDBC;
+import login.Welcome;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -190,13 +191,27 @@ public class Workout_arm extends JFrame {
         getContentPane().add(returnLabel);
         
 
-        JButton prevButton = new JButton(new ImageIcon("image/left.png"));
-        prevButton.setBounds(250, 600, 80, 61);  // 버튼 위치 설정
-        getContentPane().add(prevButton);
+        JLabel prevLabel = new JLabel(new ImageIcon("image/left.png"));
+        prevLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		cardLayout.previous(imagePanel);
+                updateContent(-1); 
+        	}
+		});
+        prevLabel.setBounds(250, 600, 80, 61);  // 버튼 위치 설정
+        getContentPane().add(prevLabel);
 
-        JButton nextButton = new JButton(new ImageIcon("image/right.png"));
-        nextButton.setBounds(350, 600, 80,61);  // 버튼 위치 설정
-        getContentPane().add(nextButton);
+        JLabel nextLabel = new JLabel(new ImageIcon("image/right.png"));
+        nextLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		 cardLayout.next(imagePanel);
+                 updateContent(1); 
+        	}
+		});
+        nextLabel.setBounds(350, 600, 80,61);  // 버튼 위치 설정
+        getContentPane().add(nextLabel);
 
 
         // 이미지 슬라이드 패널
@@ -232,22 +247,7 @@ public class Workout_arm extends JFrame {
         descriptionLabel.setForeground(Color.white);
         getContentPane().add(descriptionLabel);
 
-        // 이벤트 설정
-        prevButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.previous(imagePanel);
-                updateContent(-1); // 수정된 부분
-            }
-        });
 
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.next(imagePanel);
-                updateContent(1); // 수정된 부분
-            }
-        });
 
 
     }

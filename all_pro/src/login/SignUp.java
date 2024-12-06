@@ -181,7 +181,7 @@ JDBC jdbc = new JDBC();
 
 		// background
 		JLabel back = new JLabel();
-		back.setIcon(new ImageIcon("backimage/young1.jpg"));
+		back.setIcon(new ImageIcon("backimage/young_mini.jpg"));
 		back.setBackground(Color.BLACK);
 		back.setBounds(0, 0, 1000, 520);
 		container_Si.add(back);

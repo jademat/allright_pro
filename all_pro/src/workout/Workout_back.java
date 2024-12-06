@@ -187,13 +187,29 @@ public class Workout_back extends JFrame {
         returnLabel.setBounds(40, 500, 150, 50); // 위치 및 크기 조정
         getContentPane().add(returnLabel);
 
-        JButton prevButton = new JButton(new ImageIcon("image/left.png"));
-        prevButton.setBounds(250, 600, 80, 61);  // 버튼 위치 설정
-        getContentPane().add(prevButton);
 
-        JButton nextButton = new JButton(new ImageIcon("image/right.png"));
-        nextButton.setBounds(350, 600, 80,61);  // 버튼 위치 설정
-        getContentPane().add(nextButton);
+        
+        JLabel prevLabel = new JLabel(new ImageIcon("image/left.png"));
+        prevLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		cardLayout.previous(imagePanel);
+                updateContent(-1); 
+        	}
+		});
+        prevLabel.setBounds(250, 600, 80, 61);  // 버튼 위치 설정
+        getContentPane().add(prevLabel);
+
+        JLabel nextLabel = new JLabel(new ImageIcon("image/right.png"));
+        nextLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e){
+        		 cardLayout.next(imagePanel);
+                 updateContent(1); 
+        	}
+		});
+        nextLabel.setBounds(350, 600, 80,61);  // 버튼 위치 설정
+        getContentPane().add(nextLabel);
 
 
         // 이미지 슬라이드 패널
@@ -232,21 +248,6 @@ public class Workout_back extends JFrame {
         getContentPane().add(descriptionLabel);
 
         // 이벤트 설정
-        prevButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.previous(imagePanel);
-                updateContent(-1); // 수정된 부분
-            }
-        });
-
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.next(imagePanel);
-                updateContent(1); // 수정된 부분
-            }
-        });
 
        
     }
