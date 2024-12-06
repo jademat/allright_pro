@@ -125,14 +125,21 @@ public class Administrator_board extends JFrame {
 
         // 공지사항 제목과 내용 입력 필드
         JLabel titleLabel = new JLabel("공지사항 제목");
+        
+        titleLabel.setBounds(112, 5, 76, 15);
+        
         titleField = new JTextField(30);
+        titleField.setBounds(12, 30, 288, 21);
 
         JLabel contentLabel = new JLabel("공지사항 내용");
+        contentLabel.setBounds(112, 51, 76, 15);
         contentArea = new JTextArea(10, 30);
         JScrollPane scrollPane = new JScrollPane(contentArea);
+        scrollPane.setBounds(27, 71, 246, 206);
 
         // 공지사항 등록 버튼
         JButton button3 = new JButton("공지사항 등록");
+        button3.setBounds(95, 282, 109, 23);
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,8 +161,8 @@ public class Administrator_board extends JFrame {
         contentPane.add(rightPanel, BorderLayout.EAST);
 
         leftPanel.setPreferredSize(new Dimension(600, 700)); // 왼쪽 전체 패널 크기
-        rightPanel.setPreferredSize(new Dimension(300, 100)); // 오른쪽 공지사항 등록 크기
-        rightPanel.setLayout(new FlowLayout());
+        rightPanel.setPreferredSize(new Dimension(300, 100));
+        rightPanel.setLayout(null);
         rightPanel.add(titleLabel);
         rightPanel.add(titleField);
         rightPanel.add(contentLabel);
