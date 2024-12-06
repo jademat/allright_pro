@@ -384,7 +384,7 @@ public class Board extends JPanel {
     }
     
     
-    // 등급순 정렬시 레코드 선택 메서드
+    // 검색버튼(searchBtn) 레코드 선택 메서드
     void selectTable5(String searchText) {
 	    // 레코드 선택 시 이벤트 처리
 	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -403,10 +403,10 @@ public class Board extends JPanel {
 	                    int boa_no = (Integer) rowData[0];
 	                    String boa_name = (String) rowData[1];
 	                    String boa_write = (String) rowData[2];
-	                    int boa_like = (Integer) rowData[4];
-	                    String boa_date = (String) rowData[5];
-	                    String mem_id = (String) rowData[6];
-	                    int mem_rank = (Integer) rowData[7];
+	                    int boa_like = (Integer) rowData[3];
+	                    String boa_date = (String) rowData[4];
+	                    String mem_id = (String) rowData[5];
+	                    int mem_rank = (Integer) rowData[6];
 	
 	                    // VPanel에 데이터 전달
                         viewPanel.setViews(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);

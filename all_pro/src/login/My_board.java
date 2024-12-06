@@ -36,6 +36,13 @@ public class My_board extends JFrame {
     private My_board my_boardPanel; // 현재 Board2 패널 참조
     private String mem_id;
     
+    int boa_no;
+	String boa_name;
+	String boa_write;
+	int boa_like;
+	String boa_date;
+	int mem_rank;
+    
     public My_board() {
 		// TODO Auto-generated constructor stub
 	}
@@ -88,13 +95,13 @@ public class My_board extends JFrame {
 
         // DetailPanel 초기화
         detailPanel = new DetailPanel(jdbc, crud); 
-        detailPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        //detailPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         detailPanel.setBounds(0, 0, 786, 563);
         detailPanel.setLayout(null);
         detailPanel.setVisible(false); // 초기에는 숨김
 
         // DetailPanel을 JFrame에 추가
-        getContentPane().add(detailPanel);
+        //getContentPane().add(detailPanel);
 
         // 데이터 로드 및 이벤트 추가
         loadData();
@@ -179,7 +186,7 @@ public class My_board extends JFrame {
                         detailPanel.setDetails(boa_no, boa_name, boa_write, boa_like, boa_date, mem_id, mem_rank);
 
                         // 화면 전환
-                        mbContainer.setVisible(false); // My_Board 숨김
+                        //mbContainer.setVisible(false); // My_Board 숨김
                         detailPanel.setVisible(true);  // DetailPanel 표시
                         
                         detailPanel.revalidate();
