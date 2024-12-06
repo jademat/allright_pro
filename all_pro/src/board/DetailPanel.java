@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-public class DetailPanel extends JPanel {
+public class DetailPanel extends JFrame {
 	private JDBC jdbc;
 	private CRUD crud;
     private JTextField board_no;  // 게시물 번호
@@ -25,16 +25,22 @@ public class DetailPanel extends JPanel {
     private JPanel mbContainer;
     static String mem_id;
     
-    Board board = new Board();
-
-    /**
-     * @wbp.parser.constructor
-     */
+    
+    
     public DetailPanel(JDBC jdbc, CRUD crud) {
     	this.jdbc = jdbc;
     	this.crud = crud;
     	
+    	// 기본 패널 초기화
+        this.detailPanel = detailPanel;
+    	this.my_board = new My_board();
+    	this.crud = new CRUD(this.jdbc);
+    	
         setLayout(null);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 600);
+        setTitle("Detail");
 
         // 게시물번호(board_no) label, textField
         JLabel lblBoardNo = new JLabel("게시물 번호:");
@@ -121,7 +127,7 @@ public class DetailPanel extends JPanel {
             detailPanel.repaint();
             
             detailPanel.setVisible(false); // DetailPanel 숨김
-            boardPanel.setVisible(true);  // Board2 표시        
+            my_board.setVisible(true);  // Board2 표시        
         });
         
         
@@ -135,7 +141,7 @@ public class DetailPanel extends JPanel {
                 jdbc.close(jdbc.con, jdbc.pstmt);
 
             detailPanel.setVisible(false); // DetailPanel 숨김
-            boardPanel.setVisible(true);  // Board2 표시
+            my_board.setVisible(true);  // Board2 표시
             }
         });
 
@@ -144,8 +150,8 @@ public class DetailPanel extends JPanel {
         btnList.addActionListener(e -> {
         	
             detailPanel.setVisible(false); // DetailPanel 숨김
-            boardPanel.setVisible(true);  // Board2 표시
-            board.setTexts(board.boa_no, board.boa_name, board.boa_write, board.boa_like, board.boa_date, board.mem_id, board.mem_rank);
+            my_board.setVisible(true);  // Board2 표시
+            //my_board.setTexts(board.boa_no, board.boa_name, board.boa_write, board.boa_like, board.boa_date, board.mem_id, board.mem_rank);
         });
     }
     

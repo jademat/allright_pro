@@ -18,8 +18,8 @@ public class JDBC {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "basic";
-		String password = "1234";
+		String user = "";
+		String password = "";
 
 		try {
 			Class.forName(driver);

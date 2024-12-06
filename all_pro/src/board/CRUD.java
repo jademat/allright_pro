@@ -194,12 +194,12 @@ public class CRUD {
 	 
 	
 	// update 메서드
-	void updateBoard(int boa_no, String boa_na, String boa_write) {		    
+	void updateBoard(int boa_no, String boa_name, String boa_write) {		    
 		try {
 			jdbc.sql = "UPDATE board SET boa_name = ?, boa_write = ? WHERE boa_no = ?"; 
 			jdbc.pstmt = jdbc.con.prepareStatement(jdbc.sql);
 			
-			jdbc.pstmt.setString(1, boa_na);
+			jdbc.pstmt.setString(1, boa_name);
 			jdbc.pstmt.setString(2, boa_write);
 			jdbc.pstmt.setInt(3, boa_no);
 			
